@@ -1,0 +1,453 @@
+@import "./fontawesome.scss";
+@import "./solid.scss";
+@import "./brands.scss";
+
+body{
+  color: #222;
+  cursor: auto;
+  font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.5;
+  text-align: justify;
+  font-size: 100%;
+}
+
+$common_color1:#ECD078;
+$common_color2:#D95B43;
+$common_color3:#C02942;
+$common_color4:#542437;
+$common_color5:#53777A;
+
+$sub_color1:#555;
+$sub_color2:snow;
+
+*{
+  box-sizing: inherit;
+}
+
+p,h1,h2,h3,ul,li,form{
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+  &:hover{
+    color: inherit;
+  }
+}
+
+h1{
+  font-size: 2.75rem;
+}
+
+h1,h2,h3{
+  color: #222;
+  line-height: 1.4;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+
+
+/*------------------------*/
+ /*Navigation*/
+/*------------------------*/
+
+.Navigation{
+  padding: 10px 0;
+  background-color:$common_color1;
+  border-bottom: 2px solid $common_color4;
+  border-top: 2px solid $common_color4;
+  .NavigationBox{
+    display: flex;
+    align-items: center;
+    max-width: 1280px;
+    margin: 5px auto 10px;
+    .NavigationBrandBox{
+      margin: 0 auto 0 50px;
+        .NavigationBrandTitle{
+          margin: 0;
+          a{
+            color: $sub_color1;
+          }
+        }
+    }
+    .NavigationList{
+      margin:0 50px;
+      padding-left: 0;
+      display: flex;
+      justify-content: flex-end;
+        .NavigationItems{
+          margin-left: 20px;
+          line-height: 1;
+          list-style: none;
+            a{
+              padding:7px 10px;
+              border: 1px solid $sub_color1;
+              border-radius: 3px;
+              display: block;
+              color:$sub_color1;
+                &:hover{
+                  box-shadow: 2px 2px 3px;
+                }
+            }
+        }
+    }
+  }
+}
+
+
+/*------------------------*/
+  /*Reply_Posts.php*/
+ /*------------------------*/
+/*------------------------*/
+  /*InsertFormBox*/
+/*------------------------*/
+.InsertFormSection{
+  background-color: $common_color2;
+  width: 100%;
+  padding: 50px;
+    .InsertFormBox{
+      background-color: snow;
+      max-width: 500px;
+      margin: 0 auto;
+      border: 1px dashed #555;
+      padding: 20px 50px;
+    }
+}
+
+#password,#username{
+  margin: 0;
+}
+
+.text-muted{
+  font-size: 0.8rem;
+  padding: 5px 0 20px;
+}
+
+/*------------------------*/
+  /*TweetPostSection*/
+/*------------------------*/
+
+.TweetPostSection{
+    padding:50px 0;
+    background-color: $common_color2;
+  .TweetPostFormBox{
+    max-width: 700px;
+    margin: 0 auto;
+      .TweetPostForm{
+        text-align: left;
+        .TweetPostFormText{
+          width: 100%;
+        }
+      }
+  }
+  .InductionLoginBox{
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+      .Induction{
+        padding: 10px 0;
+          button{
+            margin: 0 10px;
+              &:hover{
+                box-shadow: 2px 2px 4px;
+              }
+          }
+      }
+  }
+}
+
+/*------------------------*/
+  /*main*/
+/*------------------------*/
+main{
+  max-width: 1280px;
+  margin: 0 auto;
+  .MainArticle{
+    display: flex;
+    max-width: 800px;
+    padding: 20px 0 15px;
+    border-bottom: 1px solid #555;
+    margin: 15px auto -1px;
+      .MainIconBox{
+        height: 60px;
+        width: 60px;
+        margin: 0 30px 0 0;
+            .MinIcon{
+              width: 100%;
+              border-radius: 50%;
+              border: 1px solid #ccc;
+            }
+      }
+      .MainAuthorPostBox{
+        width: 100%;
+        .MainAuthorName{
+          display: flex;
+          align-items: center;
+          max-width: 100%;
+          padding: 0 0 5px 0;
+          .TimeBox{
+            margin-left: auto;
+             time{
+               color: #ccc;
+              &:before{
+                font-family: "Font Awesome 5 FREE";
+                content: "\f017";
+                font-weight: 400;
+                 margin-right: 5px;
+                 }
+             }
+          }
+          .NameBox{
+            padding: 1px 10px;
+            border-radius: 3px;
+            background-color:#ccc;
+            &:before{
+              font-family: "Font Awesome 5 Free";
+              content:"\f007";
+              font-weight: 900;
+              color:$sub_color1;
+            }
+            a{
+              font-size: 14px;
+              color:$sub_color1;
+            }
+          }
+        }
+        .MainPostBox{
+          padding: 10px 0;
+          max-width: 700px;
+          overflow-wrap:break-word;
+          .MainPost{
+            font-size: 1em;
+          }
+        }
+        .MainPostImageBox{
+          text-align: left;
+          margin: 10px 0;
+          position: relative;
+          display: inline-block;
+            .ImageCover{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: absolute;
+              top: 0;
+              left: 0;
+              background-color:	rgba(0,0,0,0.4);
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+              border-radius: 5px;
+                &:hover{
+                  opacity: 1;
+                }
+                .ImageCaption{
+                  color: #fff;
+                  font-size: 1.5rem;
+                }
+            }
+            .MainPostImage{
+              border-radius: 5px;
+              border: 2px solid $sub_color1;
+            }
+        }
+        .TinkerBox{
+          display: flex;
+            .ReplyIconBox{
+              font-size: 16px;
+              :before{
+                font-family: "Font Awesome 5 FREE";
+                content: "\f086";
+                font-weight: 400;
+                color: #ccc;
+              }
+            }
+            .DeleteIconBox{
+              margin-left: auto;
+              :before{
+                font-family: "Font Awesome 5 FREE";
+                content: "\f2ed";
+                font-weight: 400;
+                margin-right: 5px;
+                color: #ccc;
+              }
+            }
+        }
+        .fa-comment{
+          color: $common_color5;
+        }
+        .fa-trash-alt{
+          color: #ccc;
+           &:hover{
+             cursor: pointer;
+           }
+        }
+        .MaxReplayPost{
+          color:#ccc;
+        }
+      }
+    }
+}
+
+
+/*------------------------*/
+  /*Mypage.php*/
+/*------------------------*/
+/*------------------------*/
+  /*ProfileSection*/
+/*------------------------*/
+.ProfileSectionWrapper{
+  .ProfileSection{
+    max-width:100%;
+    height: auto;
+    margin: 0 auto;
+    border-top: 2px solid $common_color4;
+    background-color: $common_color2;
+    .ProfileBox{
+      padding:50px 0 10px;
+      .ProfileInnerBox{
+        display: flex;
+        padding: 50px 20px;
+        margin: 0 auto;
+        border: 1px solid $sub_color1;
+        border-radius: 5px;
+        max-width: 700px;
+        background-color: $sub_color2;
+        .UserIconBox{
+          margin-left: auto;
+            .UserIcon{
+              border-radius: 50%;
+              border: 1px solid $sub_color1;
+            }
+            .UserName{
+              text-align: center;
+            }
+        }
+        .S-IntoroductionBox{
+          display: flex;
+          align-items: center;
+          width: 800px;
+          margin: 0 0 0 50px;
+        }
+      }
+    }
+    .ProfileEditTriggerBox{
+      margin: 20px auto;
+      text-align: right;
+      max-width: 700px;
+    }
+    .ProfileEditBox{
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 50px 15px;
+      border-radius: 3px;
+      background-color: $common_color5;
+      display: none;
+      .Profile{
+        width: 100%;
+      }
+      .DeleteBox{
+        text-align: right;
+          #delete{
+            cursor: pointer;
+          }
+      }
+    }
+  }
+}
+
+.ImageSectionWrap{
+  width: 100%;
+    .innerwrap{
+      max-width:1000px;
+      margin: 0 auto;
+    .ImageSection{
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 0;
+      .ImageSection_Title{
+        box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
+        border: 1px solid $sub_color1;
+        border-bottom: none;
+        background-color: $common_color2;
+        text-align: center;
+        padding: 10px 0;
+        border-top-left-radius:10px;
+        border-top-right-radius: 10px;
+        p{
+          display: inline-block;
+          background-color: $common_color1;
+          padding: 5px 7px;
+          border-top-left-radius:10px;
+          border-top-right-radius: 10px;
+        }
+      }
+    }
+  }
+}
+
+// .MainArticle{
+//   position: relative;
+//   z-index: 0;
+//   a{
+//     text-decoration: none;
+//     color:$sub_color1;
+//   }
+// }
+
+
+/*------------------------*/
+  /*Form*/
+/*------------------------*/
+
+
+  .FormBtn{
+    background-color: $sub_color2;
+    color:$common_color4;
+    border: 2px solid $common_color4;
+      &:hover{
+        box-shadow: 2px 2px 4px;
+      }
+  }
+  #Textarea{
+    background-color: $sub_color2;
+    border:2px solid $common_color4;
+  }
+  .file{
+    #File{
+      display: none;
+    }
+    #LabelFile{
+      padding:5px;
+      margin: 5px 0 0;
+        &:hover{
+          cursor: pointer;
+        }
+    }
+  }
+
+/*------------------------*/
+  /*image.ctp*/
+/*------------------------*/
+.DetailImageWrap{
+  max-width: 1000px;
+  margin: 50px auto;
+  height: auto;
+  text-align: center;
+}
+
+
+
+/*------------------------*/
+  /*slick.slider*/
+/*------------------------*/
+
+.slider{
+  box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
+  border: 1px solid $sub_color1;
+}

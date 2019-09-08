@@ -22,6 +22,13 @@ $common_color5:#53777A;
 $sub_color1:#555;
 $sub_color2:snow;
 
+$ui_color1:#00286D;
+$ui_color2:#ED1C24;
+$ui_color3:#EAEAEA;
+$ui_color4:#1C0038;
+
+
+
 *{
   box-sizing: inherit;
 }
@@ -49,6 +56,60 @@ h1,h2,h3{
   text-rendering: optimizeLegibility;
 }
 
+@mixin AnchorButton($color,$background){
+  padding: 7px 20px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 14px;
+  border: 1px solid #555;
+  font-size: 18px;
+  background:$background;
+  color:$color;
+  &:hover{
+    color: $ui_color3;
+    opacity: 0.75;
+  }
+}
+
+@mixin SubmitButton($color,$background){
+  padding:  6px 12px;
+  margin: 5px 0 0;
+  border-radius: 5px!important;
+  font-size: 20px;
+  background: $background;
+  color: $color;
+}
+
+@mixin Reset(){
+  -webkit-appearance: none!important;
+  -moz-appearance: none!important;
+  appearance: none!important;
+  outline: none!important;
+}
+
+/*------------------------*/
+ /*UI*/
+/*------------------------*/
+
+.reset{
+  @include Reset()
+}
+
+.AnchorButton_Login,.AnchorButton_PEdit{
+  @include AnchorButton($sub_color2,$ui_color1)
+}
+
+.AnchorButton_Register{
+  @include AnchorButton($sub_color2,$ui_color2)
+}
+
+.SubmitButton{
+  @include SubmitButton($sub_color2,$ui_color1)
+}
+
+.PostButton{
+  @include SubmitButton($ui_color4,$sub_color2)
+}
 
 /*------------------------*/
  /*Navigation*/
@@ -123,7 +184,7 @@ h1,h2,h3{
 
 .text-muted{
   font-size: 0.8rem;
-  padding: 5px 0 20px;
+  padding: 5px 0 10px;
 }
 
 /*------------------------*/

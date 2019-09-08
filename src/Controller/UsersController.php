@@ -42,7 +42,6 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Replys', 'Tweets']
         ]);
-
         $this->set('user', $user);
     }
 
@@ -189,7 +188,6 @@ class UsersController extends AppController
     }
 
 
-
     public function login()
     {
       if($this->request->isPost()){
@@ -208,20 +206,18 @@ class UsersController extends AppController
         }else {
           $this->Flash->error('ユーザー名かパスワードが間違っています');
         }
-
       }
     }
 
     public function logout()
     {
     $this->request->session()->destroy();
-    return $this->redirect($this->Auth->logout());
     }
 
     public function beforeFilter(Event $event)
     {
       parent::beforeFilter($event);
-      $this->Auth->allow(['index','add']);
+      $this->Auth->allow(['index','add','logout']);
     }
 
     public function isAuthorized($user = null)

@@ -4384,6 +4384,57 @@ h1, h2, h3 {
   text-rendering: optimizeLegibility; }
 
 /*------------------------*/
+/*UI*/
+/*------------------------*/
+.reset {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  outline: none !important; }
+
+.AnchorButton_Login, .AnchorButton_PEdit {
+  padding: 7px 20px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 14px;
+  border: 1px solid #555;
+  font-size: 18px;
+  background: #00286D;
+  color: snow; }
+.AnchorButton_Login:hover, .AnchorButton_PEdit:hover {
+  color: #EAEAEA;
+  opacity: 0.75; }
+
+.AnchorButton_Register {
+  padding: 7px 20px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 14px;
+  border: 1px solid #555;
+  font-size: 18px;
+  background: #ED1C24;
+  color: snow; }
+.AnchorButton_Register:hover {
+  color: #EAEAEA;
+  opacity: 0.75; }
+
+.SubmitButton {
+  padding: 6px 12px;
+  margin: 5px 0 0;
+  border-radius: 5px !important;
+  font-size: 20px;
+  background: #00286D;
+  color: snow; }
+
+.PostButton {
+  padding: 6px 12px;
+  margin: 5px 0 0;
+  border-radius: 5px !important;
+  font-size: 20px;
+  background: snow;
+  color: #1C0038; }
+
+/*------------------------*/
 /*Navigation*/
 /*------------------------*/
 .Navigation {
@@ -4442,7 +4493,7 @@ h1, h2, h3 {
 
 .text-muted {
   font-size: 0.8rem;
-  padding: 5px 0 20px; }
+  padding: 5px 0 10px; }
 
 /*------------------------*/
 /*TweetPostSection*/

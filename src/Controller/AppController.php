@@ -66,8 +66,8 @@ class AppController extends Controller
             'action' => 'index'
           ],
           'logoutRedirect' =>[
-            'controller' => 'tweets',
-            'action' => 'index'
+            'controller' => 'users',
+            'action' => 'logout'
           ],
           'authError' =>'許可されていません',
         ]);

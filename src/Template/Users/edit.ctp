@@ -43,7 +43,7 @@
       </div>
       <?php if($user_id === $user->id): ?>
       <div class="ProfileEditTriggerBox">
-        <button type="button" class="ProfileEditTrigger">プロフィールを編集する</button>
+        <a href="#" class="ProfileEditTrigger AnchorButton_PEdit">プロフィールを編集する</a>
       </div>
       <div class="ProfileEditBox">
         <?= $this->Form->create('users',['action' => 'edit/'.$user->id,'enctype' => 'multipart/form-data']) ?>
@@ -51,8 +51,8 @@
         <div class="file">
           <label for="File" id="LabelFile"><i class="far fa-smile fa-2x"></i></label>
           <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
-          <?= $this->Form->control('img_name',['type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
-          <?= $this->Form->submit('送信') ?>
+          <?= $this->Form->control('img_name',['label' => false,'type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
+          <?= $this->Form->submit(' 送 信 ',['class' => 'reset PostButton']) ?>
           <?= $this->Form->end() ?>
         </div>
         <div class="DeleteBox">

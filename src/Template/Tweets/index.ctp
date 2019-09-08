@@ -5,20 +5,21 @@
     <?= $this->Form->textarea('content',['placeholder'=>'投稿内容は200文字以下で,画像は2M以下の.jpgか.pngのみUPできます。']) ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
     <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
-    <?= $this->Form->control('img_name',['type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
-    <?= $this->Form->submit('送信') ?>
+    <?= $this->Form->control('img_name',['label' => false,'type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
+    <?= $this->Form->submit(' 送 信 ',['class' => 'reset PostButton']) ?>
     <?= $this->Form->end() ?>
   </div>
   <?php elseif(empty($username)): ?>
   <div class="InductionLoginBox">
     <p>ログインすると投稿可能になります。</p>
     <div class="Induction">
-      <?= $this->Html->link('Login',['controller'=>'users','action'=>'login']) ?>
-      <?= $this->Html->link('Register',['controller'=>'users','action'=>'add']) ?>
+      <?= $this->Html->link('Login',['controller'=>'users','action'=>'login'],['class' => 'AnchorButton_Login']) ?>
+      <?= $this->Html->link('Register',['controller'=>'users','action'=>'add'],['class' => 'AnchorButton_Register']) ?>
     </div>
   </div>
   <?php endif; ?>
 </div>
+
 <main>
 <?php foreach($tweets as $tweet): ?>
   <article class="MainArticle">

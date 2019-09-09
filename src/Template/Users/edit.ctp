@@ -1,4 +1,4 @@
-<?php if(isset($image)): ?>
+<?php if($reslut !== 0): ?>
 <div class="ImageSectionWrap">
   <div class="innerwrap">
     <div class="ImageSection">
@@ -7,13 +7,12 @@
       </div>
       <ul class="slider">
       <?php foreach($user->replys as $tweet): ?>
-          <?php if($tweet->reply_img === '0'){
-          }elseif($tweet->reply_img !== '0'){
-            ?><li><?php if(isset($tweet->reply_img)){ echo $this->Html->image(R_COMPRE_IMG.$tweet->reply_img,['class' => 'MainPostImage','url'=>['controller' => 'replys','action' => 'image',$tweet->id]]);} ?> </li> <?php } ?>
+          <?php if($tweet->reply_img !== '0'){
+            ?><li><?php if(isset($tweet->reply_img)){ echo $this->Html->image(R_COMPRE_IMG.$tweet->reply_img,['class' => 'MainPostImage','url'=>['controller' => 'replys','action' => 'image',$tweet->id]]);} ?> </li> <?php
+           } ?>
       <?php endforeach; ?>
       <?php foreach($user->tweets as $tweet): ?>
-        <?php if($tweet->image_pass === null) {
-        }elseif($tweet->image_pass !== null){
+        <?php if($tweet->image_pass !== '0') {
           ?><li> <?php if(isset($tweet->image_pass)){ echo $this->Html->image(COMPRE_IMG.$tweet->image_pass,['class' => 'MainPostImage','url'=>['controller' => 'tweets','action' => 'image',$tweet->id]]);} ?></li><?php } ?>
       <?php endforeach; ?>
       </ul>
@@ -46,8 +45,13 @@
         <a href="#" class="ProfileEditTrigger AnchorButton_PEdit">プロフィールを編集する</a>
       </div>
       <div class="ProfileEditBox">
-        <?= $this->Form->create('users',['action' => 'edit/'.$user->id,'enctype' => 'multipart/form-data']) ?>
-        <?= $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => $user->introduction]) ?>
+        <?= $this->Form->create($user,['action' => 'edit/'.$user->id,'enctype' => 'multipart/form-data']) ?>
+        <?= $this->Form->error('introduction') ?>
+        <?php if($user->introduction === ''){
+          echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => '「プロフィールを編集する」から自己紹介文とアイコンを作成してください。']);
+        }else{
+          echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => $user->introduction]);
+        } ?>
         <div class="file">
           <label for="File" id="LabelFile"><i class="far fa-smile fa-2x"></i></label>
           <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
@@ -56,7 +60,7 @@
           <?= $this->Form->end() ?>
         </div>
         <div class="DeleteBox">
-          <?= $this->Form->postLink('退会する',['id' => 'delete','action' => 'delete',$user->id],['confirm'=>'Are you sure?']); ?>
+          <?= $this->Form->postLink('退会する',['id' => 'delete','action' => 'delete',$user->id],['confirm'=>'画像データなどもすべて削除されます。退会しますか?']); ?>
         </div>
       </div>
     </div>
@@ -88,9 +92,14 @@
       </div>
       <?php endif; ?>
       <div class="TinkerBox">
+        <div class="ReplyIconBox">
+        <?= $this->Html->link('',['controller' => 'tweets','action' =>'view',$tweet->id]) ?>
+        <?php if($tweet->maxpost > 0){ echo $tweet->maxpost;} ?>
+        </div>
+        <?php if($tweet->maxpost > 0): ?><span class="MaxReplayPost"><?php $tweet->maxpost; ?></span><?php endif; ?>
         <?php if($username === $user->username): ?>
         <div class="DeleteIconBox">
-        <?= $this->Form->postLink('',['controller' => 'tweets','action' => 'delete',$tweet->id],['confirm'=>'Are you sure?']); ?>
+        <?= $this->Form->postLink('',['controller' => 'tweets','action' => 'delete',$tweet->id],['confirm'=>'削除しますか？']); ?>
         </div>
         <?php endif; ?>
       </div>

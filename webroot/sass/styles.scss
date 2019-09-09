@@ -27,8 +27,6 @@ $ui_color2:#ED1C24;
 $ui_color3:#EAEAEA;
 $ui_color4:#1C0038;
 
-
-
 *{
   box-sizing: inherit;
 }
@@ -319,11 +317,13 @@ main{
           display: flex;
             .ReplyIconBox{
               font-size: 16px;
+              color:#ccc;
               :before{
                 font-family: "Font Awesome 5 FREE";
-                content: "\f086";
-                font-weight: 400;
+                content: "\f075";
+                font-weight: 900;
                 color: #ccc;
+                font-size: 20px;
               }
             }
             .DeleteIconBox{
@@ -337,18 +337,9 @@ main{
               }
             }
         }
-        .fa-comment{
-          color: $common_color5;
-        }
-        .fa-trash-alt{
-          color: #ccc;
-           &:hover{
-             cursor: pointer;
-           }
-        }
-        .MaxReplayPost{
-          color:#ccc;
-        }
+        // .MaxReplayPost{
+        //   color:red;
+        // }
       }
     }
 }

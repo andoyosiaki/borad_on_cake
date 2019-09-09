@@ -4601,12 +4601,14 @@ main .MainArticle .MainAuthorPostBox .MainPostImageBox .MainPostImage {
 main .MainArticle .MainAuthorPostBox .TinkerBox {
   display: flex; }
 main .MainArticle .MainAuthorPostBox .TinkerBox .ReplyIconBox {
-  font-size: 16px; }
+  font-size: 16px;
+  color: #ccc; }
 main .MainArticle .MainAuthorPostBox .TinkerBox .ReplyIconBox :before {
   font-family: "Font Awesome 5 FREE";
-  content: "\f086";
-  font-weight: 400;
-  color: #ccc; }
+  content: "\f075";
+  font-weight: 900;
+  color: #ccc;
+  font-size: 20px; }
 main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox {
   margin-left: auto; }
 main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
@@ -4614,14 +4616,6 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   content: "\f2ed";
   font-weight: 400;
   margin-right: 5px;
-  color: #ccc; }
-main .MainArticle .MainAuthorPostBox .fa-comment {
-  color: #53777A; }
-main .MainArticle .MainAuthorPostBox .fa-trash-alt {
-  color: #ccc; }
-main .MainArticle .MainAuthorPostBox .fa-trash-alt:hover {
-  cursor: pointer; }
-main .MainArticle .MainAuthorPostBox .MaxReplayPost {
   color: #ccc; }
 
 /*------------------------*/

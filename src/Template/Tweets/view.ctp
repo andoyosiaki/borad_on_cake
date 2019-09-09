@@ -9,7 +9,7 @@
         <?= $this->Html->link($tweet->user->username,['controller' => 'users','action' => 'edit',$tweet->user->id]) ?>
         </div>
         <div class="TimeBox">
-        <time><i class="fa fa-clock"></i><?= $tweet['create_at']; ?></time>
+        <time><?= $tweet['create_at']; ?></time>
         </div>
       </div>
       <div class="MainPostBox">
@@ -36,7 +36,7 @@
         <?= $this->Html->link($tweets->user->username,['controller' => 'users','action' => 'edit',$tweets->user->id]) ?>
         </div>
         <div class="TimeBox">
-        <time><i class="fa fa-clock"></i><?= $tweets['create_at']; ?></time>
+        <time><?= $tweets['create_at']; ?></time>
         </div>
       </div>
       <div class="MainPostBox">

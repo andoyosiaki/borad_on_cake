@@ -3,6 +3,7 @@
   <div class="TweetPostFormBox">
     <?= $this->Form->create('tweets',['action'=>'add','enctype' => 'multipart/form-data']) ?>
     <?= $this->Form->textarea('content',['placeholder'=>'投稿内容は200文字以下で,画像は2M以下の.jpgか.pngのみUPできます。']) ?>
+    <?= $this->Form->error('content') ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
     <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
     <?= $this->Form->control('img_name',['label' => false,'type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
@@ -53,7 +54,7 @@
         <?php if($tweet->maxpost > 0): ?><span class="MaxReplayPost"><?php $tweet->maxpost; ?></span><?php endif; ?>
         <?php if($username === $tweet->user->username): ?>
         <div class="DeleteIconBox">
-        <?= $this->Form->postLink('',['action' => 'delete',$tweet->id],['confirm'=>'Are you sure?']); ?>
+        <?= $this->Form->postLink('',['action' => 'delete',$tweet->id],['confirm'=>'削除しますか?']); ?>
         </div>
         <?php endif; ?>
       </div>

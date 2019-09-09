@@ -45,11 +45,12 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        
 
 
         $this->viewBuilder()->setLayout('my_layout');
 
-        $this->Session = $this->request->session();
+        $this->Session = $this->request->getSession();
 
         $this->loadComponent('Auth',[
           'authorize' =>['Controller'],

@@ -14,21 +14,25 @@ use Cake\Auth\DefaultPasswordHasher;
 class UsersController extends AppController
 {
 
-      protected function _setPassword($password)
+    public $components = ['Image'];
+
+    protected function _setPassword($password)
     {
       return (new DefaultPasswordHasher)->hash($password);
     }
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
-    {
-        $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
-    }
+    // public function index()
+    // {
+    //     // $users = $this->paginate($this->Users);
+    //     //
+    //     // $this->set(compact('users'));
+    //     return $this->redirect(['controller' => 'tweets','action' => 'index']);
+    // }
 
     /**
      * View method
@@ -37,13 +41,14 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => ['Replys', 'Tweets']
-        ]);
-        $this->set('user', $user);
-    }
+    // public function view($id = null)
+    // {
+    //     // $user = $this->Users->get($id, [
+    //     //     'contain' => ['Replys', 'Tweets']
+    //     // ]);
+    //     // $this->set('user', $user);
+    //     return $this->redirect(['controller' => 'tweets','action' => 'index']);
+    // }
 
     /**
      * Add method
@@ -78,10 +83,15 @@ class UsersController extends AppController
             'contain' => ['Tweets','Replys']
         ]);
 
-        //画像が投稿されてるか判定
-        foreach ($user->tweets as $key){ $image = $key->image_pass;}
-        foreach ($user->replys as $key){ $image = $key->reply_img;}
-        $this->set(compact('image'));
+        //サムネイル画像表示のための画像投稿有無判定
+        $this->loadModel('Replys');
+        $ImagePostReply = $this->Replys->find()->where(['user_id' => $id ,'reply_img' => '0'])->count();
+        $AllReplyPost = $this->Replys->find()->where(['user_id' => $id])->count();
+        $this->loadModel('Tweets');
+        $ImagePostTweets = $this->Tweets->find()->where(['user_id' => $id ,'image_pass' => '0'])->count();
+        $AllReplyTweets = $this->Tweets->find()->where(['user_id' => $id])->count();
+        $reslut =  ($AllReplyPost - $ImagePostReply) + ($AllReplyTweets - $ImagePostTweets);
+        $this->set(compact('reslut'));
 
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
@@ -92,22 +102,22 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $userinfo = $this->request->getData();
             $img_error = $userinfo['img_name']['error'];
-            $ext = $this->_CutExt_Lower($userinfo['img_name']['name']);
+            $ext = $this->Image->CutExt_Lower($userinfo['img_name']['name']);
             if($userinfo['img_name']['name'] !=='' && $img_error === 0 && $ext === '.jpg' || $ext === '.png'){
 
               if ($user->icon !=='0.png'){
-                $this->_DeleteFile_2(P_COMPRE_IMG,P_PROTO_IMG,$user->icon);
+                $this->Image->DeleteFile_2(P_COMPRE_IMG,P_PROTO_IMG,$user->icon);
               }
 
               $day = time();
               $img_adress =  $day.$user_id.$ext;
               $user->icon = $img_adress;
 
-              list($baseImage,$width,$hight) = $this->_images($userinfo['img_name']['tmp_name'],P_PROTO_IMG,$img_adress);
+              list($baseImage,$width,$hight) = $this->Image->images($userinfo['img_name']['tmp_name'],P_PROTO_IMG,$img_adress);
               $image = imagecreatetruecolor(ICON_SIZE, ICON_SIZE); // サイズを指定して新しい画像のキャンバスを作成
 
               // 画像のコピーと伸縮
-              $this->_CreatTtumb($image,$baseImage,P_COMPRE_IMG,$width,$hight,$img_adress);
+              $this->Image->CreatTtumb($image,$baseImage,P_COMPRE_IMG,$width,$hight,$img_adress);
             }elseif($userinfo['img_name']['name'] ===''){
               // 画像を変更しない場合はスルー
             }else {
@@ -152,7 +162,7 @@ class UsersController extends AppController
         $R_ProtoImage = WWW_ROOT.IMAGES_DIR.R_PROTO_IMG.$user->username;
         $files = [$CompreImage,$ProtoImage,$R_CompreImage,$R_ProtoImage];
         foreach ($files as $file) {
-          $this->_deletefileforeach($file);
+          $this->Image->deletefileforeach($file);
         }
 
         $replysTable = $this->getTableLocator()->get('Replys');
@@ -170,17 +180,21 @@ class UsersController extends AppController
       }
 
       //投稿数の変更処理
-      for ($i=0; $i < $n; $i++) {
-        $result[] = ($AllPosts[$i] - $UserPosts[$i]);
-        $tweetsTable = $this->getTableLocator()->get('Tweets');
-        $newcount = $tweetsTable->get($count[$i]);
-        $newcount->maxpost = $result[$i];
-        $tweetsTable->save($newcount);
+      if(isset($UserPosts) && $UserPosts !==NULL){
+        for ($i=0; $i < $n; $i++) {
+          $result[] = ($AllPosts[$i] - $UserPosts[$i]);
+          $tweetsTable = $this->getTableLocator()->get('Tweets');
+          $newcount = $tweetsTable->get($count[$i]);
+          $newcount->maxpost = $result[$i];
+          $tweetsTable->save($newcount);
+        }
       }
 
+
       if ($this->Users->delete($user)) {
-          $this->Flash->success(__('The user has been deleted.'));
-          $this->request->session()->destroy();
+        $this->Flash->success(__('The user has been deleted.'));
+        $this->request->session()->destroy();
+        return $this->redirect(['action' => 'add']);
       } else {
           $this->Flash->error(__('The user could not be deleted. Please, try again.'));
       }
@@ -211,66 +225,25 @@ class UsersController extends AppController
 
     public function logout()
     {
-    $this->request->session()->destroy();
+    $this->request->getSession()->destroy();
     }
 
     public function beforeFilter(Event $event)
     {
       parent::beforeFilter($event);
-      $this->Auth->allow(['index','add','logout']);
+      $this->Auth->allow(['add','logout']);
     }
 
     public function isAuthorized($user = null)
     {
-      $action = $this->request->parames['action'];
+      $action = $this->request->getParam(['action']);
 
-        if(in_array($action,['view'])){
+      if(in_array($action,['view'])){
         return true;
       }
 
       if($user['role'] === 'user'){
         return true;
-      }
-    }
-
-    public function _DeleteFile_2($dir1,$dir2,$data){
-      $file1 = WWW_ROOT.IMAGES_DIR.$dir1.$data;
-      $file2 = WWW_ROOT.IMAGES_DIR.$dir2.$data;
-      unlink($file1);
-      unlink($file2);
-    }
-
-    public function _CutExt_Lower($data){
-       return strtolower(substr($data,-4));
-    }
-
-    public function _images($data,$dir,$pass){
-      move_uploaded_file($data,WWW_ROOT.IMAGES_DIR.$dir.$pass);
-      list($width, $hight,$info) = getimagesize(WWW_ROOT.IMAGES_DIR.$dir.$pass); // 元の画像名を指定してサイズを取得
-      switch($info){
-      case 2:
-      $base = imagecreatefromjpeg(WWW_ROOT.IMAGES_DIR.$dir.$pass);
-      break;
-      case 3:
-      $base = imagecreatefrompng(WWW_ROOT.IMAGES_DIR.$dir.$pass);
-      break;
-      }
-      return array($base,$width,$hight);
-    }
-
-    public function _CreatTtumb($img,$base,$dir,$w,$h,$adress){
-      if($dir ==='Compre_img/' || $dir === 'Reply_Compre_img/'){
-        imagecopyresampled($img,$base, 0, 0, 0, 0,THUMB_WIDTH,THUMB_HEIGHT, $w, $h);
-        return imagejpeg($img,WWW_ROOT.IMAGES_DIR.$dir.$adress);
-      }elseif($dir === 'Profile_Compre_img/'){
-        imagecopyresampled($img,$base, 0, 0, 0, 0,ICON_SIZE,ICON_SIZE, $w, $h);
-        return imagejpeg($img,WWW_ROOT.IMAGES_DIR.$dir.$adress);
-      }
-    }
-
-    public function _deletefileforeach($filepass){
-      foreach(glob($filepass.'*') as $filepass){
-        unlink($filepass);
       }
     }
 

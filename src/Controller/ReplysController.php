@@ -13,6 +13,9 @@ use Cake\Event\Event;
  */
 class ReplysController extends AppController
 {
+
+      public $components = ['Image'];
+
     /**
      * Index method
      *
@@ -66,24 +69,28 @@ class ReplysController extends AppController
             $reply->create_at = time();
 
             $post = $this->request->getData();
+            if($reply->reply_img === null){
+              $reply->reply_img = 0;
+            }
+            if($reply->errors()){
+               $this->Flash->error(__('２００文字以内でお願いします'));
+               return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);exit();
+            }
             $img_error = $post['reply_img']['error'];
-
             if(!empty($post['reply_img']['name']) && MAX_FILE_SIZE > $post['reply_img']['size'] && $img_error === 0){
 
-              $ext =  $this->_CutExt_Lower($post['reply_img']['name']);
+              $ext = $this->Image->CutExt_Lower($post['reply_img']['name']);
               if($img_error === 0 && $ext === '.jpg' || $ext === '.png'){
 
                 $tweet_img = $this->Replys->Tweets->find()->where(['id' => $post['tweet_id']]);
                 foreach ($tweet_img as $key) {
                   $uniq_id = $key['tweet_img'];
                 }
-                $img_adress = $this->_CreateImagePath_replys($uniq_id,$username,$user_id,$ext);
-
+                $img_adress = $this->Image->CreateImagePath_replys($uniq_id,$username,$user_id,$ext);
                 $reply->reply_img = $img_adress;
-
-                list($baseImage,$width,$hight) = $this->_images($post['reply_img']['tmp_name'],R_PROTO_IMG,$img_adress);
+                list($baseImage,$width,$hight) = $this->Image->images($post['reply_img']['tmp_name'],R_PROTO_IMG,$img_adress);
                 $image = imagecreatetruecolor(THUMB_WIDTH, THUMB_HEIGHT);
-                $this->_CreatTtumb($image,$baseImage,R_COMPRE_IMG,$width,$hight,$img_adress);
+                $this->Image->CreatTtumb($image,$baseImage,R_COMPRE_IMG,$width,$hight,$img_adress);
               }else {
                 $reply->reply_img = 0;
               }
@@ -91,18 +98,23 @@ class ReplysController extends AppController
               $reply->reply_img = 0;
             }
 
-            $max = $this->Replys->find()->where(['tweet_id' =>$reply->tweet_id])->count();
 
-            $tweetsTable = $this->getTableLocator()->get('Tweets');
-            $newcount = $tweetsTable->get($reply->tweet_id);
-            $newcount->maxpost = ($max + 1);
-            $tweetsTable->save($newcount);
 
+          if($img_error === 0 || $reply->reply_content){
             if ($this->Replys->save($reply)) {
 
-                return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
+              $max = $this->Replys->find()->where(['tweet_id' =>$reply->tweet_id])->count();
+              $tweetsTable = $this->getTableLocator()->get('Tweets');
+              $newcount = $tweetsTable->get($reply->tweet_id);
+              $newcount->maxpost = $max;
+              $tweetsTable->save($newcount);
+
+              return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
             }
+          }else {
             $this->Flash->error(__('The reply could not be saved. Please, try again.'));
+            return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
+          }
         }
 
         $tweets = $this->Replys->Tweets->find('list', ['limit' => 200]);
@@ -138,6 +150,7 @@ class ReplysController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The reply could not be saved. Please, try again.'));
+            return $this->redirect(['action' => 'index']);
         }
         $tweets = $this->Replys->Tweets->find('list', ['limit' => 200]);
         $users = $this->Replys->Users->find('list', ['limit' => 200]);
@@ -163,17 +176,19 @@ class ReplysController extends AppController
         $tweetsTable->save($newcount);
 
 
-        if(isset($reply['reply_img'])){
-          $this->_DeleteFile_2(R_PROTO_IMG,R_COMPRE_IMG,$reply['reply_img']);
+        if(!empty($reply['reply_img'])){
+          $this->Image->DeleteFile_2(R_PROTO_IMG,R_COMPRE_IMG,$reply['reply_img']);
         }
 
         if ($this->Replys->delete($reply)) {
+
             $this->Flash->success(__('The reply has been deleted.'));
+            return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
         } else {
             $this->Flash->error(__('The reply could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
+        return $this->redirect(['controller' => 'tweets','action' => 'index']);
     }
 
     public function beforeFilter(Event $event){
@@ -192,52 +207,4 @@ class ReplysController extends AppController
         return true;
       }
     }
-
-
-
-
-
-
-
-
-    public function _CutExt_Lower($data){
-       return strtolower(substr($data,-4));
-    }
-
-    public function _images($data,$dir,$pass){
-    move_uploaded_file($data,WWW_ROOT.IMAGES_DIR.$dir.$pass);
-    list($width, $hight,$info) = getimagesize(WWW_ROOT.IMAGES_DIR.$dir.$pass); // 元の画像名を指定してサイズを取得
-    switch($info){
-    case 2:
-    $base = imagecreatefromjpeg(WWW_ROOT.IMAGES_DIR.$dir.$pass);
-    break;
-    case 3:
-    $base = imagecreatefrompng(WWW_ROOT.IMAGES_DIR.$dir.$pass);
-    break;
-    }
-    return array($base,$width,$hight);
-  }
-
-  public function _CreatTtumb($img,$base,$dir,$w,$h,$adress){
-    if($dir ==='Compre_img/' || $dir === 'Reply_Compre_img/'){
-      imagecopyresampled($img,$base, 0, 0, 0, 0,THUMB_WIDTH,THUMB_HEIGHT, $w, $h);
-      return imagejpeg($img,WWW_ROOT.IMAGES_DIR.$dir.$adress);
-    }elseif($dir === 'Profile_Compre_img/'){
-      imagecopyresampled($img,$base, 0, 0, 0, 0,ICON_SIZE,ICON_SIZE, $w, $h);
-      return imagejpeg($img,WWW_ROOT.IMAGES_DIR.$dir.$adress);
-    }
-  }
-
-  public function _CreateImagePath_replys($uniq,$sessionname,$sessionid,$extension){
-    $uniq = $uniq;
-    $day = time();
-    return  $img =  $sessionname.$uniq.$day.$sessionid.$extension;
-  }
-
-  public function _DeleteFile_2($dir1,$dir2,$data){
-    $file1 = WWW_ROOT.IMAGES_DIR.$dir1.$data;
-    $file2 = WWW_ROOT.IMAGES_DIR.$dir2.$data;
-    unlink($file1);
-    unlink($file2);
-  }
 }

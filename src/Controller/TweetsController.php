@@ -19,6 +19,8 @@ class TweetsController extends AppController
       'contain' => ['Users']
     ];
 
+    public $components = ['Image'];
+
     /**
      * Index method
      *
@@ -54,7 +56,6 @@ class TweetsController extends AppController
 
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
-
         $this->set(compact('user_id','username'));
 
 
@@ -74,31 +75,34 @@ class TweetsController extends AppController
 
         $tweet = $this->Tweets->newEntity();
 
-
         if ($this->request->is('post')) {
 
             $tweet = $this->Tweets->patchEntity($tweet, $this->request->getData());
+            if($tweet->errors()){
+               $this->Flash->error(__('２００文字以内でお願いします'));
+               return $this->redirect(['action' => 'index']);exit();
+            }
             $tweet->user_id = $user_id;
             $tweet->create_at = time();
-            $post = $this->request->getData();
 
-            $tweet->tweet_img = md5(uniqid(rand(),true));
+            $post = $this->request->getData();
             $img_error = $post['img_name']['error'];
 
-            if(MAX_FILE_SIZE > $post['img_name']['size'] && $img_error === 0){
+            $tweet->tweet_img = md5(uniqid(rand(),true));
 
-              $ext =  $this->_CutExt_Lower($post['img_name']['name']);
+            if(MAX_FILE_SIZE > $post['img_name']['size'] && $img_error === 0){
+              $ext = $this->Image->CutExt_Lower($post['img_name']['name']);
               if($img_error === 0 && $ext === '.jpg' || $ext === '.png'){
 
-                $img_adress = $this->_CreateImagePath($username,$user_id,$ext);
+                $img_adress = $this->Image->CreateImagePath($username,$user_id,$ext);
                 $tweet->image_pass = $img_adress;
 
-                list($baseImage,$width,$hight) = $this->_images($post['img_name']['tmp_name'],PROTO_IMG,$img_adress);
+                list($baseImage,$width,$hight) = $this->Image->images($post['img_name']['tmp_name'],PROTO_IMG,$img_adress);
                 $image = imagecreatetruecolor(THUMB_WIDTH, THUMB_HEIGHT);
-                $this->_CreatTtumb($image,$baseImage,COMPRE_IMG,$width,$hight,$img_adress);
-              }else {
-                $error = 'extension';
+                $this->Image->CreatTtumb($image,$baseImage,COMPRE_IMG,$width,$hight,$img_adress);
               }
+            }else {
+              $tweet->image_pass = 0;
             }
 
             if($img_error === 0 || $post['content']){
@@ -109,7 +113,8 @@ class TweetsController extends AppController
               $this->Flash->error(__('The tweet could not be saved. Please, try again.'));
               return $this->redirect(['action' => 'index']);
             }
-
+        }else {
+          return $this->redirect(['action' => 'index']);
         }
         $users = $this->Tweets->Users->find('list', ['limit' => 200]);
         $this->set(compact('tweet', 'users'));
@@ -147,8 +152,8 @@ class TweetsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $tweet = $this->Tweets->get($id);
 
-        if(isset($tweet['image_pass'])){
-          $this->_DeleteFile_2(PROTO_IMG,COMPRE_IMG,$tweet['image_pass']);
+        if(!empty($tweet['image_pass'])){
+          $this->Image->DeleteFile_2(PROTO_IMG,COMPRE_IMG,$tweet['image_pass']);
         }
 
         if($tweet['maxpost'] > 0){
@@ -166,8 +171,6 @@ class TweetsController extends AppController
           }
         }
 
-
-
         if ($this->Tweets->delete($tweet)) {
             $this->Flash->success(__('The tweet has been deleted.'));
         } else {
@@ -183,7 +186,7 @@ class TweetsController extends AppController
     }
 
     public function isAuthorized($user = null){
-      $action = $this->request->parames['action'];
+      $action = $this->request->getParam(['action']);
 
         if(in_array($action,['view'])){
         return true;
@@ -193,47 +196,4 @@ class TweetsController extends AppController
         return true;
       }
     }
-
-
-    public function _CutExt_Lower($data){
-       return strtolower(substr($data,-4));
-    }
-
-    public function _images($data,$dir,$pass){
-    move_uploaded_file($data,WWW_ROOT.IMAGES_DIR.$dir.$pass);
-    list($width, $hight,$info) = getimagesize(WWW_ROOT.IMAGES_DIR.$dir.$pass); // 元の画像名を指定してサイズを取得
-    switch($info){
-    case 2:
-    $base = imagecreatefromjpeg(WWW_ROOT.IMAGES_DIR.$dir.$pass);
-    break;
-    case 3:
-    $base = imagecreatefrompng(WWW_ROOT.IMAGES_DIR.$dir.$pass);
-    break;
-    }
-    return array($base,$width,$hight);
-  }
-
-  public function _CreatTtumb($img,$base,$dir,$w,$h,$adress){
-    if($dir ==='Compre_img/' || $dir === 'Reply_Compre_img/'){
-      imagecopyresampled($img,$base, 0, 0, 0, 0,THUMB_WIDTH,THUMB_HEIGHT, $w, $h);
-      return imagejpeg($img,WWW_ROOT.IMAGES_DIR.$dir.$adress);
-    }elseif($dir === 'Profile_Compre_img/'){
-      imagecopyresampled($img,$base, 0, 0, 0, 0,ICON_SIZE,ICON_SIZE, $w, $h);
-      return imagejpeg($img,WWW_ROOT.IMAGES_DIR.$dir.$adress);
-    }
-  }
-
-  public function _CreateImagePath($sessionname,$sessionid,$extension){
-      $rec = $sessionid;
-      $day = time();
-      return  $img =  $sessionname.$day.$sessionid.$extension;
-  }
-
-
-  public function _DeleteFile_2($dir1,$dir2,$data){
-    $file1 = WWW_ROOT.IMAGES_DIR.$dir1.$data;
-    $file2 = WWW_ROOT.IMAGES_DIR.$dir2.$data;
-    unlink($file1);
-    unlink($file2);
-  }
 }

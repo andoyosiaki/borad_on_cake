@@ -61,6 +61,7 @@ class TweetsTable extends Table
 
         $validator
             ->scalar('content')
+            ->maxLength('content', 200,'投稿は２００文字以内でおねがいします')
             ->allowEmptyString('content');
 
         $validator

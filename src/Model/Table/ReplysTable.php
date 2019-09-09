@@ -33,6 +33,8 @@ class ReplysTable extends Table
     {
         parent::initialize($config);
 
+        $this->addBehavior('Timestamp');
+
         $this->setTable('replys');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
@@ -61,6 +63,7 @@ class ReplysTable extends Table
 
         $validator
             ->scalar('reply_content')
+            ->maxLength('reply_content', 200,'投稿は２００文字以内でおねがいします')
             ->allowEmptyString('reply_content');
 
         $validator

@@ -55,6 +55,8 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+        $validator->setProvider('ProviderKey', 'App\Model\Validation\CustomValidation');
+
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
@@ -66,6 +68,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('introduction')
+            ->maxLength('introduction', 200,'２００文字以内でおねがいします。')
             ->allowEmptyString('introduction');
 
         $validator
@@ -77,13 +80,21 @@ class UsersTable extends Table
             ->scalar('username')
             ->maxLength('username', 255)
             ->requirePresence('username', 'create')
-            ->notEmptyString('username');
+            ->notEmptyString('username')->add('username', 'ruleName', [
+            'rule' => ['postal_codeCustom'],
+            'provider' => 'ProviderKey',
+            'message' => 'ログインIDは半角英数字で入力してください。'])
+            ->lengthBetween('username', [4, 10], 'アカウント名は4文字以上、10文字以内でおねがいします。');
 
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password')->add('password', 'ruleName', [
+            'rule' => ['postal_codeCustom'],
+            'provider' => 'ProviderKey',
+            'message' => 'ログインパスワードは半角英数字で入力してください。'])
+            ->lengthBetween('password', [4, 10], 'パスワードは4文字以上、10文字以内でおねがいします');
 
         return $validator;
     }

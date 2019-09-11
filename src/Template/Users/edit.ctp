@@ -21,6 +21,24 @@
 </div>
 <?php endif; ?>
 
+  <div class="ImageSectionWrap">
+    <div class="innerwrap">
+      <div class="ImageSection">
+        <div class="ImageSection_Title">
+          <p>-- 投稿動画一覧 --</p>
+        </div>
+        <ul class="slider">
+          <?php foreach($ContentPostReply as $keys): ?>
+          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->content) ?>
+          <?php if(preg_match("/youtu.be/",$keys->content) && !preg_match("/feature/",$keys->content)): ?>
+          <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
+          <?php endif; ?>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
+  </div>
+<img src="" alt="">
 <div class="ProfileSectionWrapper">
   <div class="ProfileSection">
     <div class="ProfileBox">
@@ -31,13 +49,14 @@
           <?php else: ?>
           <p class="m-1"><?= $this->Html->image(P_COMPRE_IMG.$user->icon,['class' => 'UserIcon']) ?></p>
           <?php endif; ?>
-          <p class="UserName"><?= $user->username; ?></p>
+          <p class="UserName"><?= h($user->username); ?></p>
         </div>
         <div class="S-IntoroductionBox">
           <?php if($user->introduction === null): ?>
           <p>「プロフィールを編集する」から自己紹介文とアイコンを作成してください。</p>
           <?php endif; ?>
-          <p><?= nl2br(h($user->introduction)); ?></p>
+          <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($user->introduction); ?></p>
+          <p><?= $AnchorUrl ?></p>
         </div>
       </div>
       <?php if($user_id === $user->id): ?>

@@ -28,8 +28,6 @@ class LinkHelper extends Helper
         $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
         $json = json_decode($url,true);
         $YoutubeTitle = $json['items'][0]['snippet']['title'];
-      }else {
-        throw new \Exception("Error Processing Request", 1);
       }
       return [$RemoveUrlContent,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
     }elseif(preg_match("/https/",$text) && !preg_match("/youtu.be/",$text)){
@@ -45,6 +43,23 @@ class LinkHelper extends Helper
       $ImageUrl = null;
       $YoutubeTitle = null;
       return [$content,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
+    }
+  }
+
+  public function CreateYoutubeThumb($data){
+    if(preg_match("/https/",$data) && preg_match("/youtu.be/",$data) && !preg_match("/feature/",$data)){
+      $point = strstr($data,'be/');
+      $uniqurl = substr($point,3,11);
+      $YoutubeUrl = 'https://youtu.be/'.$uniqurl;
+      $ImageUrl = 'https://i.ytimg.com/vi/'.$uniqurl.'/mqdefault.jpg';
+
+      if(isset($uniqurl)){
+        $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
+        $json = json_decode($url,true);
+        $youtubetitle = $json['items'][0]['snippet']['title'];
+        $CutTitle =  mb_substr($youtubetitle,0,25);
+        return [$ImageUrl,$YoutubeUrl,$CutTitle];
+      }
     }
   }
 

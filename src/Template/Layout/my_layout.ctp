@@ -20,9 +20,10 @@
 </head>
 <body>
     <?= $this->Flash->render() ?>
-    <?= $this->element('my_header')  ?>
+    <?= $this->element('my_header') ?>
     <div class="container ">
         <?= $this->fetch('content') ?>
     </div>
+    <?= $this->element('my_footer') ?>
 </body>
 </html>

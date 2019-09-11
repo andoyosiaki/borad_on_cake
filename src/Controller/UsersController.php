@@ -93,6 +93,10 @@ class UsersController extends AppController
         $reslut =  ($AllReplyPost - $ImagePostReply) + ($AllReplyTweets - $ImagePostTweets);
         $this->set(compact('reslut'));
 
+        $ContentPostReply = $this->Tweets->find()->where(['user_id' => $id]);
+        $this->set(compact('ContentPostReply'));
+
+
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
         $this->set(compact('user_id','username'));

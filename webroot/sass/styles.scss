@@ -360,9 +360,6 @@ main{
               }
             }
         }
-        // .MaxReplayPost{
-        //   color:red;
-        // }
       }
     }
 }
@@ -406,6 +403,9 @@ main{
           align-items: center;
           width: 800px;
           margin: 0 0 0 50px;
+          a{
+            color: #337ab7;
+          }
         }
       }
     }
@@ -445,6 +445,13 @@ main{
       max-width: 800px;
       margin: 0 auto;
       padding: 20px 0;
+        .CutTitle{
+          font-size: 0.8rem;
+          height: 40px;
+          margin: 5px 0;
+          padding: 0 5px;
+          border-right: 1px solid #555;
+        }
       .ImageSection_Title{
         box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
         border: 1px solid $sub_color1;
@@ -466,14 +473,21 @@ main{
   }
 }
 
-// .MainArticle{
-//   position: relative;
-//   z-index: 0;
-//   a{
-//     text-decoration: none;
-//     color:$sub_color1;
-//   }
-// }
+
+/*------------------------*/
+  /*footer.php*/
+/*------------------------*/
+
+footer{
+  background-color: $common_color5;
+  border-bottom: 2px solid $common_color4;
+  border-top: 2px solid $common_color4;
+  text-align: center;
+  padding: 20px 10px 3px;
+    a{
+      color: $sub_color1;
+    }
+}
 
 
 /*------------------------*/

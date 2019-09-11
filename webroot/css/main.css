@@ -6190,6 +6190,9 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   width: 800px;
   margin: 0 0 0 50px;
 }
+.ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .S-IntoroductionBox a {
+  color: #337ab7;
+}
 .ProfileSectionWrapper .ProfileSection .ProfileEditTriggerBox {
   margin: 20px auto;
   text-align: right;
@@ -6227,6 +6230,13 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   margin: 0 auto;
   padding: 20px 0;
 }
+.ImageSectionWrap .innerwrap .ImageSection .CutTitle {
+  font-size: 0.8rem;
+  height: 40px;
+  margin: 5px 0;
+  padding: 0 5px;
+  border-right: 1px solid #555;
+}
 .ImageSectionWrap .innerwrap .ImageSection .ImageSection_Title {
   box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
   border: 1px solid #555;
@@ -6243,6 +6253,20 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   padding: 5px 7px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+/*------------------------*/
+/*footer.php*/
+/*------------------------*/
+footer {
+  background-color: #53777A;
+  border-bottom: 2px solid #542437;
+  border-top: 2px solid #542437;
+  text-align: center;
+  padding: 20px 10px 3px;
+}
+footer a {
+  color: #555;
 }
 
 /*------------------------*/

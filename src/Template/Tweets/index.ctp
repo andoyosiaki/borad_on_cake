@@ -36,16 +36,21 @@
         <time><?= $tweet['create_at']; ?></time>
         </div>
       </div>
-      <object><a href="tweets/view/<?= $tweet->id; ?>">
       <div class="MainPostBox">
-        <p class="MainPost"><?= nl2br(h($tweet->content)); ?></p>
+        <p class="MainPost"><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
+        <p><?= nl2br($AnchorUrl); ?></p>
+        <?php if(isset($YoutubeUrl)): ?>
+        <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>" target="_blank"><?= $YoutubeTitle ?></a></p>
+        <div class="MainYoutubeBox">
+          <p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" class="MainYoutubeImage"></a></p>
+        </div>
+        <?php endif; ?>
       </div>
       <?php if($tweet->image_pass): ?>
       <div class="MainPostImageBox">
       <?= $this->Html->image(COMPRE_IMG.$tweet->image_pass,['class' => 'MainPostImage','url'=>['action' => 'image',$tweet->id]]); ?>
       </div>
       <?php endif; ?>
-      </a></object>
       <div class="TinkerBox">
         <div class="ReplyIconBox">
         <?= $this->Html->link('',['controller' => 'tweets','action' =>'view',$tweet->id]) ?>

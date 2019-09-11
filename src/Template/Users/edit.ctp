@@ -84,7 +84,14 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p class="MainPost"><?= nl2br(h($tweet->content)); ?></p>
+        <p class="MainPost"><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
+        <p><?= nl2br($AnchorUrl); ?></p>
+        <?php if(isset($YoutubeUrl)): ?>
+        <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>"><?= $YoutubeTitle ?></a></p>
+        <div class="MainYoutubeBox">
+          <p><a target="_blank" href="<?= $YoutubeUrl ?>" target="_blank"><img src="<?= $ImageUrl; ?>" class="MainYoutubeImage"></a></p>
+        </div>
+        <?php endif; ?>
       </div>
       <?php if($tweet->image_pass): ?>
       <div class="MainPostImageBox">

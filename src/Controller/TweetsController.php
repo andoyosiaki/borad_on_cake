@@ -77,7 +77,9 @@ class TweetsController extends AppController
 
         if ($this->request->is('post')) {
 
+
             $tweet = $this->Tweets->patchEntity($tweet, $this->request->getData());
+
             if($tweet->errors()){
                $this->Flash->error(__('２００文字以内でお願いします'));
                return $this->redirect(['action' => 'index']);exit();
@@ -85,8 +87,10 @@ class TweetsController extends AppController
             $tweet->user_id = $user_id;
             $tweet->create_at = time();
 
+
             $post = $this->request->getData();
             $img_error = $post['img_name']['error'];
+
 
             $tweet->tweet_img = md5(uniqid(rand(),true));
 

@@ -279,8 +279,31 @@ main{
           padding: 10px 0;
           max-width: 700px;
           overflow-wrap:break-word;
+          .MainYoutubeBox{
+            width: 230px;
+            height: 135px;
+            .MainYoutubeImage{
+              border:  2px solid $sub_color1;
+            }
+          }
+          .YoutubeTitle{
+            font-size: 0.8rem;
+            margin-top: 20px;
+            &:before{
+              font-family: "Font Awesome 5 Brands";
+              content:"\f167";
+              font-weight: 400;
+              color:red;
+              margin-right: 3px;
+            }
+          }
           .MainPost{
             font-size: 1em;
+          }
+          p{
+            a{
+              color: #337ab7;
+            }
           }
         }
         .MainPostImageBox{

@@ -5841,6 +5841,53 @@ h1, h2, h3 {
   text-rendering: optimizeLegibility;
 }
 
+.message {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.success {
+  background-color: skyblue;
+  color: #EAEAEA;
+}
+
+.error {
+  background-color: tomato;
+  color: #EAEAEA;
+}
+
+.hidden {
+  display: none;
+}
+
+.Textarea {
+  border: 2px solid #555;
+}
+
+.HowToPostYoutubeBox {
+  display: none;
+}
+
+.YoutubeTrigger {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.YoutubeTrigger #HowToPostYoutubeTrigger {
+  cursor: pointer;
+  background-color: #ECD078;
+  display: inline-block;
+  text-decoration: underline;
+  line-height: 2;
+  padding: 0 15px;
+  margin: 0 0 15px;
+  border-radius: 3px;
+}
+.YoutubeTrigger #HowToPostYoutubeTrigger .fa-youtube {
+  color: red;
+  margin-right: 5px;
+}
+
 /*------------------------*/
 /*UI*/
 /*------------------------*/
@@ -5851,17 +5898,17 @@ h1, h2, h3 {
   outline: none !important;
 }
 
-.AnchorButton_Login, .AnchorButton_PEdit {
+.AnchorButton_Login, .AnchorButton_PEdit, .SubmitButton {
   padding: 7px 20px;
   margin: 5px 0;
   cursor: pointer;
   border-radius: 14px;
   border: 1px solid #555;
-  font-size: 18px;
+  font-size: 1rem;
   background: #00286D;
   color: snow;
 }
-.AnchorButton_Login:hover, .AnchorButton_PEdit:hover {
+.AnchorButton_Login:hover, .AnchorButton_PEdit:hover, .SubmitButton:hover {
   color: #EAEAEA;
   opacity: 0.75;
 }
@@ -5872,22 +5919,13 @@ h1, h2, h3 {
   cursor: pointer;
   border-radius: 14px;
   border: 1px solid #555;
-  font-size: 18px;
+  font-size: 1rem;
   background: #ED1C24;
   color: snow;
 }
 .AnchorButton_Register:hover {
   color: #EAEAEA;
   opacity: 0.75;
-}
-
-.SubmitButton {
-  padding: 6px 12px;
-  margin: 5px 0 0;
-  border-radius: 5px !important;
-  font-size: 20px;
-  background: #00286D;
-  color: snow;
 }
 
 .PostButton {
@@ -5980,15 +6018,30 @@ h1, h2, h3 {
   padding: 50px 0;
   background-color: #D95B43;
 }
+.TweetPostSection .HowToPostYoutubeBox {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px 50px;
+  border-radius: 3px;
+  background-color: #fff;
+}
+.TweetPostSection .HowToPostYoutubeBox li {
+  list-style: none;
+  width: 100%;
+  text-align: left;
+  padding: 20px 0 5px;
+  font-size: 0.85rem;
+}
+.TweetPostSection .HowToPostYoutubeBox li img {
+  width: 400px;
+  border: 2px solid #555;
+}
 .TweetPostSection .TweetPostFormBox {
   max-width: 700px;
   margin: 0 auto;
 }
-.TweetPostSection .TweetPostFormBox .TweetPostForm {
-  text-align: left;
-}
-.TweetPostSection .TweetPostFormBox .TweetPostForm .TweetPostFormText {
-  width: 100%;
+.TweetPostSection .TweetPostFormBox .Textarea {
+  border: 2px solid #555;
 }
 .TweetPostSection .InductionLoginBox {
   max-width: 500px;
@@ -6022,7 +6075,7 @@ main .MainArticle {
 main .MainArticle .MainIconBox {
   height: 60px;
   width: 60px;
-  margin: 0 30px 0 0;
+  margin: 0 10px 0 0;
 }
 main .MainArticle .MainIconBox .MinIcon {
   width: 100%;
@@ -6066,7 +6119,7 @@ main .MainArticle .MainAuthorPostBox .MainAuthorName .NameBox a {
   color: #555;
 }
 main .MainArticle .MainAuthorPostBox .MainPostBox {
-  padding: 10px 0;
+  padding: 10px 0 0;
   max-width: 700px;
   overflow-wrap: break-word;
 }
@@ -6099,6 +6152,7 @@ main .MainArticle .MainAuthorPostBox .MainPostImageBox {
   margin: 10px 0;
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 main .MainArticle .MainAuthorPostBox .MainPostImageBox .ImageCover {
   display: flex;
@@ -6129,7 +6183,6 @@ main .MainArticle .MainAuthorPostBox .TinkerBox {
 }
 main .MainArticle .MainAuthorPostBox .TinkerBox .ReplyIconBox {
   font-size: 16px;
-  color: #ccc;
 }
 main .MainArticle .MainAuthorPostBox .TinkerBox .ReplyIconBox :before {
   font-family: "Font Awesome 5 FREE";
@@ -6176,6 +6229,7 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
 }
 .ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .UserIconBox {
   margin-left: auto;
+  text-align: center;
 }
 .ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .UserIconBox .UserIcon {
   border-radius: 50%;
@@ -6188,9 +6242,12 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   display: flex;
   align-items: center;
   width: 800px;
-  margin: 0 0 0 50px;
+  margin: 0 0 0 15px;
 }
-.ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .S-IntoroductionBox a {
+.ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .S-IntoroductionBox .name {
+  font-size: 1rem;
+}
+.ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .S-IntoroductionBox .name a {
   color: #337ab7;
 }
 .ProfileSectionWrapper .ProfileSection .ProfileEditTriggerBox {
@@ -6199,8 +6256,6 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   max-width: 700px;
 }
 .ProfileSectionWrapper .ProfileSection .ProfileEditBox {
-  position: relative;
-  z-index: 1;
   max-width: 700px;
   margin: 0 auto;
   padding: 50px 15px;
@@ -6226,9 +6281,9 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   margin: 0 auto;
 }
 .ImageSectionWrap .innerwrap .ImageSection {
-  max-width: 800px;
+  max-width: 670px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 10px 0;
 }
 .ImageSectionWrap .innerwrap .ImageSection .CutTitle {
   font-size: 0.8rem;
@@ -6313,6 +6368,125 @@ footer a {
 .slider {
   box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
   border: 1px solid #555;
+}
+
+/*------------------------*/
+/*responsive*/
+/*------------------------*/
+@media (max-width: 768px) {
+  .Navigation .NavigationBox {
+    display: block;
+  }
+
+  main .MainArticle {
+    padding: 15px;
+  }
+  main .MainArticle .MainIconBox {
+    margin: 0 10px 0 0;
+  }
+  main .MainArticle .MainAuthorPostBox .MainAuthorName {
+    font-size: 12px;
+  }
+
+  .TweetPostFormBox {
+    padding: 0 15px;
+  }
+
+  .ProfileSectionWrapper .ProfileSection .ProfileBox .UserIconBox {
+    width: 100px;
+  }
+  .ProfileSectionWrapper .ProfileSection .ProfileBox .UserIconBox .m-1 img {
+    width: 100%;
+  }
+  .ProfileSectionWrapper .ProfileSection .ProfileBox .UserIconBox .UserName {
+    font-size: 0.7em;
+  }
+  .ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox {
+    padding: 20px 10px;
+  }
+  .ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .S-IntoroductionBox .name {
+    font-size: 0.8rem;
+  }
+
+  #HowToPostYoutubeTrigger {
+    margin: 0 15px 15px !important;
+  }
+
+  .CutTitle {
+    font-size: 0.6rem !important;
+  }
+
+  .ProfileSectionWrapper .ProfileSection .ProfileBox {
+    padding: 15px;
+  }
+
+  .ProfileSectionWrapper .ProfileSection .ProfileEditBox {
+    padding: 20px 10px;
+  }
+}
+@media (max-width: 576px) {
+  .MainPost {
+    font-size: 0.8em !important;
+  }
+
+  .Navigation .NavigationBox .NavigationBrandBox {
+    margin: 0 auto 0 10px;
+  }
+  .Navigation .NavigationBox .NavigationList {
+    margin: 10px 0 0;
+  }
+  .Navigation .NavigationBox .NavigationList .NavigationItems {
+    margin: 3px;
+  }
+
+  .UserIconBox {
+    width: 170px !important;
+  }
+
+  .name {
+    font-size: 0.8rem;
+  }
+
+  .S-IntoroductionBox {
+    margin: 0 0 0 5px;
+  }
+
+  .InsertFormSection {
+    padding: 15px;
+  }
+  .InsertFormSection .InsertFormBox {
+    padding: 20px 30px;
+    margin: 20px auto;
+  }
+
+  .MainPostImageBox {
+    width: 170px !important;
+  }
+
+  .YoutubeTitle {
+    font-size: 0.6rem !important;
+  }
+
+  .MainYoutubeBox {
+    width: 180px !important;
+    height: 120px !important;
+  }
+
+  #HowToPostYoutubeTrigger {
+    margin: 0 15px 15px !important;
+  }
+
+  .HowToPostYoutubeBox {
+    padding: 20px 15px !important;
+  }
+
+  .CutTitle {
+    display: none !important;
+  }
+
+  footer p {
+    font-size: 0.8rem !important;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

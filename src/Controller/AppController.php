@@ -71,7 +71,7 @@ class AppController extends Controller
             'controller' => 'users',
             'action' => 'logout'
           ],
-          'authError' =>'許可されていません',
+          'authError' =>'許可されていないアクセスです',
         ]);
 
         /*

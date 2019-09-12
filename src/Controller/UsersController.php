@@ -90,12 +90,31 @@ class UsersController extends AppController
         $this->loadModel('Tweets');
         $ImagePostTweets = $this->Tweets->find()->where(['user_id' => $id ,'image_pass' => '0'])->count();
         $AllReplyTweets = $this->Tweets->find()->where(['user_id' => $id])->count();
-        $reslut =  ($AllReplyPost - $ImagePostReply) + ($AllReplyTweets - $ImagePostTweets);
-        $this->set(compact('reslut'));
+        $Images =  ($AllReplyPost - $ImagePostReply) + ($AllReplyTweets - $ImagePostTweets);
+        $this->set(compact('Images'));
 
-        $ContentPostReply = $this->Tweets->find()->where(['user_id' => $id]);
-        $this->set(compact('ContentPostReply'));
+        //Youtubeサムネイル表示
+        $ContentPostTweet = $this->Tweets->find()->where(['user_id' => $id]);
+        $ContentPostReply = $this->Replys->find()->where(['user_id' => $id]);
+        $this->set(compact('ContentPostTweet','ContentPostReply'));
 
+        foreach($ContentPostTweet as $keys ){
+          if(preg_match("/https/",$keys->content) && preg_match("/youtu.be/",$keys->content)){
+              $array[] = count($keys->content);
+          }
+        }
+
+        foreach($ContentPostReply as $keys ){
+          if(preg_match("/https/",$keys->reply_content) && preg_match("/youtu.be/",$keys->reply_content)){
+              $array2[] = count($keys->reply_content);
+          }
+        }
+
+        if(!empty($array) || !empty($array2)){
+          $done1 = 'ok';
+          $done2 = 'ok';
+          $this->set(compact('done1','done2'));
+        }
 
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
@@ -130,8 +149,7 @@ class UsersController extends AppController
 
 
             if ($this->Users->save($user)) {
-
-                return $this->redirect(['controller' => 'users','action' => 'edit/'.$user->id]);
+              return $this->redirect(['controller' => 'users','action' => 'edit/'.$user->id]);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -218,7 +236,7 @@ class UsersController extends AppController
           $username = $this->Session->read('username');
           $user_id = $this->Session->read('user_id');
           $this->set(compact('userid','user_id'));
-
+          $this->Flash->success(__('ログイン成功！'));
           return $this->redirect($this->Auth->redirectUrl());
 
         }else {

@@ -1,8 +1,9 @@
 <div class="TweetPostSection">
   <?php if($username): ?>
+  <?= $this->element('how_to_post_youtube') ?>
   <div class="TweetPostFormBox">
     <?= $this->Form->create('tweets',['action'=>'add','enctype' => 'multipart/form-data']) ?>
-    <?= $this->Form->textarea('content',['placeholder'=>'投稿内容は200文字以下で,画像は2M以下の.jpgか.pngのみUPできます。']) ?>
+    <?= $this->Form->textarea('content',['class' => 'Textarea','placeholder'=>'投稿内容は200文字以下で,画像は2M以下の.jpgか.pngのみUPできます。']) ?>
     <?= $this->Form->error('content') ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
     <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
@@ -37,8 +38,8 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p class="MainPost"><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
-        <p><?= nl2br($AnchorUrl); ?></p>
+        <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
+        <p class="MainPost"><?= nl2br($AnchorUrl); ?></p>
         <?php if(isset($YoutubeUrl)): ?>
         <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>" target="_blank"><?= $YoutubeTitle ?></a></p>
         <div class="MainYoutubeBox">

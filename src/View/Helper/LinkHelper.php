@@ -13,9 +13,10 @@ class LinkHelper extends Helper
 
   public function CreateLink($text){
     if(preg_match("/https/",$text) && preg_match("/youtu.be/",$text)){
-      if(preg_match("/feature/",$text)){
+      if(preg_match("/feature/",$text) || preg_match("/\?t=/",$text)){
         goto label;
       }
+
       $content =  mb_ereg_replace("(https?)(://[[:alnum:]\+\$\;\?\.%,!#~*/:@&=_-]+)", '\1\2' , $text);
       $point = strstr($content,'be/');
       $uniqurl = substr($point,3,11);
@@ -27,9 +28,17 @@ class LinkHelper extends Helper
       if(isset($uniqurl)){
         $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
         $json = json_decode($url,true);
-        $YoutubeTitle = $json['items'][0]['snippet']['title'];
+        if(isset($json['items'][0])){
+          $YoutubeTitle = $json['items'][0]['snippet']['title'];
+          return [$RemoveUrlContent,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
+        }else {
+          $content = 'この動画は存在しません';
+          $YoutubeUrl = null;
+          $ImageUrl = null;
+          $YoutubeTitle = null;
+          return [$content,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
+        }
       }
-      return [$RemoveUrlContent,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
     }elseif(preg_match("/https/",$text) && !preg_match("/youtu.be/",$text)){
       label:
       $content = nl2br(mb_ereg_replace("(https?)(://[[:alnum:]\+\$\;\?\.%,!#~*/:@&=_-]+)", '<a target=”_blank” href="\1\2">\1\2</a>' , $text));

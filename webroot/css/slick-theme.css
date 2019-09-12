@@ -79,8 +79,8 @@
 
 .slick-prev
 {
-    left: -30px;
-
+  left: 25px;
+  top: -37px;
 }
 [dir='rtl'] .slick-prev
 {
@@ -90,7 +90,7 @@
 .slick-prev:before
 {
     content: '←';
-    color: #53777A;
+    color: #fff;
     margin-left: -20px;
 }
 [dir='rtl'] .slick-prev:before
@@ -100,7 +100,8 @@
 
 .slick-next
 {
-    right: -25px;
+  right: 30px;
+  top: -37px;
 }
 [dir='rtl'] .slick-next
 {
@@ -110,7 +111,7 @@
 .slick-next:before
 {
     content: '→';
-    color: #53777A;
+    color: #fff;
     margin-right: -20px;
 }
 [dir='rtl'] .slick-next:before

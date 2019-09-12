@@ -1,4 +1,52 @@
-<?php if($reslut !== 0): ?>
+<div class="ProfileSectionWrapper">
+  <div class="ProfileSection">
+    <div class="ProfileBox">
+      <div class="ProfileInnerBox">
+        <div class="UserIconBox">
+          <?php if($user->icon === '0.png'): ?>
+          <p class="m-1"><?= $this->Html->image(P_COMPRE_IMG.'0.png',['class' => 'UserIcon']); ?></p>
+          <?php else: ?>
+          <p class="m-1"><?= $this->Html->image(P_COMPRE_IMG.$user->icon,['class' => 'UserIcon']) ?></p>
+          <?php endif; ?>
+          <p class="UserName"><?= h($user->username); ?></p>
+        </div>
+        <div class="S-IntoroductionBox">
+          <?php if($user->introduction === null): ?>
+          <p>「プロフィールを編集する」から自己紹介文とアイコンを作成してください。</p>
+          <?php endif; ?>
+          <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($user->introduction); ?></p>
+          <p class='name'><?= $AnchorUrl ?></p>
+        </div>
+      </div>
+      <?php if($user_id === $user->id): ?>
+      <div class="ProfileEditTriggerBox">
+        <a href="#" class="ProfileEditTrigger AnchorButton_PEdit">プロフィールを編集する</a>
+      </div>
+      <div class="ProfileEditBox">
+        <?= $this->Form->create($user,['action' => 'edit/'.$user->id,'enctype' => 'multipart/form-data']) ?>
+        <?= $this->Form->error('introduction') ?>
+        <?php if($user->introduction === '「プロフィールを編集する」から自己紹介文とアイコンを作成してください。'){
+          echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => '「プロフィールを編集する」から自己紹介文とアイコンを作成してください。']);
+        }else{
+          echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => $user->introduction]);
+        } ?>
+        <div class="file">
+          <label for="File" id="LabelFile"><i class="far fa-smile fa-2x"></i></label>
+          <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
+          <?= $this->Form->control('img_name',['label' => false,'type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
+          <?= $this->Form->submit(' 送 信 ',['class' => 'reset PostButton']) ?>
+          <?= $this->Form->end() ?>
+        </div>
+        <div class="DeleteBox">
+          <?= $this->Form->postLink('退会する',['id' => 'delete','action' => 'delete',$user->id],['confirm'=>'画像データなどもすべて削除されます。退会しますか?']); ?>
+        </div>
+      </div>
+    </div>
+      <?php endif; ?>
+  </div>
+</div>
+
+<?php if($Images !== 0): ?>
 <div class="ImageSectionWrap">
   <div class="innerwrap">
     <div class="ImageSection">
@@ -21,6 +69,7 @@
 </div>
 <?php endif; ?>
 
+<?php if(!empty($done) || !empty($done2)): ?>
   <div class="ImageSectionWrap">
     <div class="innerwrap">
       <div class="ImageSection">
@@ -28,9 +77,15 @@
           <p>-- 投稿動画一覧 --</p>
         </div>
         <ul class="slider">
-          <?php foreach($ContentPostReply as $keys): ?>
+          <?php foreach($ContentPostTweet as $keys): ?>
           <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->content) ?>
           <?php if(preg_match("/youtu.be/",$keys->content) && !preg_match("/feature/",$keys->content)): ?>
+          <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
+          <?php endif; ?>
+          <?php endforeach; ?>
+          <?php foreach($ContentPostReply as $keys): ?>
+          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->reply_content) ?>
+          <?php if(preg_match("/youtu.be/",$keys->reply_content) && !preg_match("/feature/",$keys->reply_content)): ?>
           <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
           <?php endif; ?>
           <?php endforeach; ?>
@@ -38,54 +93,7 @@
       </div>
     </div>
   </div>
-<img src="" alt="">
-<div class="ProfileSectionWrapper">
-  <div class="ProfileSection">
-    <div class="ProfileBox">
-      <div class="ProfileInnerBox">
-        <div class="UserIconBox">
-          <?php if($user->icon === '0.png'): ?>
-          <p class="m-1"><?= $this->Html->image(P_COMPRE_IMG.'0.png',['class' => 'UserIcon']); ?></p>
-          <?php else: ?>
-          <p class="m-1"><?= $this->Html->image(P_COMPRE_IMG.$user->icon,['class' => 'UserIcon']) ?></p>
-          <?php endif; ?>
-          <p class="UserName"><?= h($user->username); ?></p>
-        </div>
-        <div class="S-IntoroductionBox">
-          <?php if($user->introduction === null): ?>
-          <p>「プロフィールを編集する」から自己紹介文とアイコンを作成してください。</p>
-          <?php endif; ?>
-          <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($user->introduction); ?></p>
-          <p><?= $AnchorUrl ?></p>
-        </div>
-      </div>
-      <?php if($user_id === $user->id): ?>
-      <div class="ProfileEditTriggerBox">
-        <a href="#" class="ProfileEditTrigger AnchorButton_PEdit">プロフィールを編集する</a>
-      </div>
-      <div class="ProfileEditBox">
-        <?= $this->Form->create($user,['action' => 'edit/'.$user->id,'enctype' => 'multipart/form-data']) ?>
-        <?= $this->Form->error('introduction') ?>
-        <?php if($user->introduction === ''){
-          echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => '「プロフィールを編集する」から自己紹介文とアイコンを作成してください。']);
-        }else{
-          echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => $user->introduction]);
-        } ?>
-        <div class="file">
-          <label for="File" id="LabelFile"><i class="far fa-smile fa-2x"></i></label>
-          <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
-          <?= $this->Form->control('img_name',['label' => false,'type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>
-          <?= $this->Form->submit(' 送 信 ',['class' => 'reset PostButton']) ?>
-          <?= $this->Form->end() ?>
-        </div>
-        <div class="DeleteBox">
-          <?= $this->Form->postLink('退会する',['id' => 'delete','action' => 'delete',$user->id],['confirm'=>'画像データなどもすべて削除されます。退会しますか?']); ?>
-        </div>
-      </div>
-    </div>
-      <?php endif; ?>
-  </div>
-</div>
+<?php endif; ?>
 
 <main>
   <?php foreach($user->tweets as $tweet): ?>
@@ -103,8 +111,8 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p class="MainPost"><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
-        <p><?= nl2br($AnchorUrl); ?></p>
+        <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
+        <p class="MainPost"><?= nl2br($AnchorUrl); ?></p>
         <?php if(isset($YoutubeUrl)): ?>
         <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>"><?= $YoutubeTitle ?></a></p>
         <div class="MainYoutubeBox">

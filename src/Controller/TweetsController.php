@@ -156,10 +156,12 @@ class TweetsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $tweet = $this->Tweets->get($id);
 
+        //投稿に添付された画像ファイルの削除
         if(!empty($tweet['image_pass'])){
           $this->Image->DeleteFile_2(PROTO_IMG,COMPRE_IMG,$tweet['image_pass']);
         }
 
+        //投稿に対しての返信に付けられた画像ファイルの削除
         if($tweet['maxpost'] > 0){
           $replytweet = $this->Tweets->find()->where(['id' => $id]);
           foreach ($replytweet as $key) {
@@ -175,6 +177,11 @@ class TweetsController extends AppController
           }
         }
 
+        $this->loadModel('Replys');
+        $replypost = $this->Replys->find()->where(['tweet_id' => $id]);
+        foreach($replypost as $deletekey){
+          $this->Replys->delete($deletekey);
+        }
         if ($this->Tweets->delete($tweet)) {
             $this->Flash->success(__('The tweet has been deleted.'));
         } else {

@@ -13,8 +13,8 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p class="MainPost"><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
-        <p><?= nl2br($AnchorUrl); ?></p>
+        <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
+        <p class="MainPost"><?= nl2br($AnchorUrl); ?></p>
         <?php if(isset($YoutubeUrl)): ?>
         <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>"><?= $YoutubeTitle ?></a></p>
         <div class="MainYoutubeBox">
@@ -47,8 +47,8 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p class="MainPost"><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweets->reply_content); ?></p>
-        <p><?= nl2br($AnchorUrl); ?></p>
+        <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweets->reply_content); ?></p>
+        <p class="MainPost"><?= nl2br($AnchorUrl); ?></p>
         <?php if(isset($YoutubeUrl)): ?>
         <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>" target="_blank"><?= $YoutubeTitle ?></a></p>
         <div class="MainYoutubeBox">
@@ -72,7 +72,6 @@
   </article>
 <?php endforeach; ?>
 </main>
-
 <div class="TweetPostSection">
   <?php if($username): ?>
   <div class="TweetPostFormBox">

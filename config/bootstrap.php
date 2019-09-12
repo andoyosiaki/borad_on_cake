@@ -36,7 +36,8 @@
  //cookie投稿制限
  define('INTERVAL',1);
 
- define('YOUTUBE_API','AIzaSyAqdjwoq19Gdyqdfu4biD8zMyPQipQsiMQ');
+  //youtube_APIキー
+ define('YOUTUBE_API',);
 
 
 

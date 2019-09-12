@@ -29,12 +29,11 @@ class TweetsController extends AppController
     public function index()
     {
 
-        $tweets = $this->paginate($this->Tweets);
-
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
         $this->set(compact('user_id','username'));
-
+        
+        $tweets = $this->paginate($this->Tweets);
         $this->set(compact('tweets'));
 
     }

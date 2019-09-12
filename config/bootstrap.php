@@ -37,7 +37,7 @@
  define('INTERVAL',1);
 
   //youtube_APIキー
- define('YOUTUBE_API','AIzaSyAqdjwoq19Gdyqdfu4biD8zMyPQipQsiMQ');
+ define('YOUTUBE_API',);
 
 
 

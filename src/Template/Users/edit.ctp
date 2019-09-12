@@ -25,7 +25,7 @@
       <div class="ProfileEditBox">
         <?= $this->Form->create($user,['action' => 'edit/'.$user->id,'enctype' => 'multipart/form-data']) ?>
         <?= $this->Form->error('introduction') ?>
-        <?php if($user->introduction === '「プロフィールを編集する」から自己紹介文とアイコンを作成してください。'){
+        <?php if($user->introduction === ''){
           echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => '「プロフィールを編集する」から自己紹介文とアイコンを作成してください。']);
         }else{
           echo $this->Form->textarea('introduction',['class' => 'Profile','placeholder' => '自己紹介','value' => $user->introduction]);

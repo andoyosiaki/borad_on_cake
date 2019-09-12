@@ -32,7 +32,7 @@
 </main>
 
 <main>
-<?php foreach($result as $tweets): ?>
+  <?php foreach($result as $tweets): ?>
   <article class="MainArticle">
     <div class="MainIconBox">
       <?= $this->Html->image(P_COMPRE_IMG.$tweets->user->icon,['class' => 'MinIcon','url' => ['controller' => 'users','action' => 'edit',$tweets->user->id]]) ?>
@@ -70,13 +70,14 @@
       </div>
     </div>
   </article>
-<?php endforeach; ?>
+  <?php endforeach; ?>
 </main>
+
 <div class="TweetPostSection">
   <?php if($username): ?>
   <div class="TweetPostFormBox">
     <?= $this->Form->create('replys',['enctype' => 'multipart/form-data','url' => ['controller' => 'Replys','action' => 'add']]) ?>
-    <?= $this->Form->textarea('reply_content',['placeholder'=>'投稿内容は200文字以下で,画像は2M以下の.jpgか.pngのみUPできます。']) ?>
+    <?= $this->Form->textarea('reply_content',['placeholder'=>'投稿内容は200文字以下で,画像は'.$this->Link->CutIntFromImagesize(MAX_FILE_SIZE).'M以下の.jpgか.pngのみUPできます。']) ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
     <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
     <?= $this->Form->control('reply_img',['label' => false,'type' => 'file','id' => 'File','accept'=>'.jpg,.png']) ?>

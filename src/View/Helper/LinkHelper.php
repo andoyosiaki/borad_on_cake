@@ -72,5 +72,13 @@ class LinkHelper extends Helper
     }
   }
 
+  public function CutIntFromImagesize($datas){
+    if(strlen($datas) === 7){
+      return  substr($datas,-7,-6);
+    }elseif(strlen($datas) === 8){
+      return  substr($datas,-8,-6);
+    }
+  }
+
 
 }

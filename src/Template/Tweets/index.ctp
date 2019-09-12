@@ -3,7 +3,7 @@
   <?= $this->element('how_to_post_youtube') ?>
   <div class="TweetPostFormBox">
     <?= $this->Form->create('tweets',['action'=>'add','enctype' => 'multipart/form-data']) ?>
-    <?= $this->Form->textarea('content',['class' => 'Textarea','placeholder'=>'投稿内容は200文字以下で,画像は2M以下の.jpgか.pngのみUPできます。']) ?>
+    <?= $this->Form->textarea('content',['class' => 'Textarea','placeholder'=>'投稿内容は200文字以下で,画像は'.$this->Link->CutIntFromImagesize(MAX_FILE_SIZE).'M以下の.jpgか.pngのみUPできます。']) ?>
     <?= $this->Form->error('content') ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
     <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>
@@ -23,7 +23,7 @@
 </div>
 
 <main>
-<?php foreach($tweets as $tweet): ?>
+  <?php foreach($tweets as $tweet): ?>
   <article class="MainArticle">
     <div class="MainIconBox">
       <?= $this->Html->image(P_COMPRE_IMG.$tweet->user->icon,['class' => 'MinIcon','url' => ['controller' => 'users','action' => 'edit',$tweet->user->id]]) ?>
@@ -66,5 +66,5 @@
       </div>
     </div>
   </article>
-<?php endforeach; ?>
+  <?php endforeach; ?>
 </main>

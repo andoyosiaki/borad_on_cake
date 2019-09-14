@@ -73,11 +73,15 @@ class ReplysController extends AppController
             if($reply->reply_img === null){
               $reply->reply_img = 0;
             }
-            if($reply->errors()){
+            if($reply->getErrors()){
                $this->Flash->error(__('２００文字以内でお願いします'));
                return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);exit();
             }
-            $img_error = $post['reply_img']['error'];
+
+            if(isset($post['reply_img']['error']) && $post['reply_img']['error'] === 0){
+              $img_error = $post['reply_img']['error'];
+            }
+
             if(!empty($post['reply_img']['name']) && MAX_FILE_SIZE > $post['reply_img']['size'] && $img_error === 0){
 
               $ext = $this->Image->CutExt_Lower($post['reply_img']['name']);
@@ -96,14 +100,12 @@ class ReplysController extends AppController
                 $reply->reply_img = 0;
               }
             }else {
-              $reply->reply_img = 0;
+              $this->Flash->error(__('The tweet could not be saved. Please, try again.'));
+              return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
             }
-
-
 
           if($img_error === 0 || $reply->reply_content){
             if ($this->Replys->save($reply)) {
-
               $max = $this->Replys->find()->where(['tweet_id' =>$reply->tweet_id])->count();
               $tweetsTable = $this->getTableLocator()->get('Tweets');
               $newcount = $tweetsTable->get($reply->tweet_id);
@@ -196,7 +198,7 @@ class ReplysController extends AppController
     }
 
     public function isAuthorized($user = null){
-      $action = $this->request->parames['action'];
+      $action = $this->request->getParam(['action']);
 
       if(in_array($action,['view'])){
       return true;

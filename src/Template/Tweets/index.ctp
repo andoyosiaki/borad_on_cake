@@ -2,7 +2,7 @@
   <?php if($username): ?>
   <?= $this->element('how_to_post_youtube') ?>
   <div class="TweetPostFormBox">
-    <?= $this->Form->create('tweets',['action'=>'add','enctype' => 'multipart/form-data']) ?>
+    <?= $this->Form->create('tweets',['type' => 'file','url'=>['action' => 'add']]) ?>
     <?= $this->Form->textarea('content',['class' => 'Textarea','placeholder'=>'投稿内容は200文字以下で,画像は'.$this->Link->CutIntFromImagesize(MAX_FILE_SIZE).'M以下の.jpgか.pngのみUPできます。']) ?>
     <?= $this->Form->error('content') ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?></p>
+        <?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweet->content); ?>
         <p class="MainPost"><?= nl2br($AnchorUrl); ?></p>
         <?php if(isset($YoutubeUrl)): ?>
         <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>" target="_blank"><?= $YoutubeTitle ?></a></p>

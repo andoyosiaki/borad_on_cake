@@ -75,11 +75,9 @@ class TweetsController extends AppController
         $tweet = $this->Tweets->newEntity();
 
         if ($this->request->is('post')) {
-
-
             $tweet = $this->Tweets->patchEntity($tweet, $this->request->getData());
 
-            if($tweet->errors()){
+            if($tweet->getErrors()){
                $this->Flash->error(__('２００文字以内でお願いします'));
                return $this->redirect(['action' => 'index']);exit();
             }
@@ -87,21 +85,24 @@ class TweetsController extends AppController
             $tweet->create_at = new Time(date('Y-m-d H:i:s'));
 
             $post = $this->request->getData();
-            $img_error = $post['img_name']['error'];
 
+            if(isset($post['img_name']['error']) && $post['img_name']['error'] === 0){
+              $img_error = $post['img_name']['error'];
+              $tweet->tweet_img = md5(uniqid(rand(),true));
 
-            $tweet->tweet_img = md5(uniqid(rand(),true));
+              if(MAX_FILE_SIZE > $post['img_name']['size'] && $img_error === 0){
+                $ext = $this->Image->CutExt_Lower($post['img_name']['name']);
+                if($img_error === 0 && $ext === '.jpg' || $ext === '.png'){
 
-            if(MAX_FILE_SIZE > $post['img_name']['size'] && $img_error === 0){
-              $ext = $this->Image->CutExt_Lower($post['img_name']['name']);
-              if($img_error === 0 && $ext === '.jpg' || $ext === '.png'){
+                  $img_adress = $this->Image->CreateImagePath($username,$user_id,$ext);
+                  $tweet->image_pass = $img_adress;
 
-                $img_adress = $this->Image->CreateImagePath($username,$user_id,$ext);
-                $tweet->image_pass = $img_adress;
-
-                list($baseImage,$width,$hight) = $this->Image->images($post['img_name']['tmp_name'],PROTO_IMG,$img_adress);
-                $image = imagecreatetruecolor(THUMB_WIDTH, THUMB_HEIGHT);
-                $this->Image->CreatTtumb($image,$baseImage,COMPRE_IMG,$width,$hight,$img_adress);
+                  list($baseImage,$width,$hight) = $this->Image->images($post['img_name']['tmp_name'],PROTO_IMG,$img_adress);
+                  $image = imagecreatetruecolor(THUMB_WIDTH, THUMB_HEIGHT);
+                  $this->Image->CreatTtumb($image,$baseImage,COMPRE_IMG,$width,$hight,$img_adress);
+                }
+              }else {
+                $tweet->image_pass = 0;
               }
             }else {
               $tweet->image_pass = 0;

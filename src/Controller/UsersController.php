@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\I18n\Time;
 /**
  * Users Controller
  *
@@ -100,17 +101,21 @@ class UsersController extends AppController
 
         foreach($ContentPostTweet as $keys ){
           if(preg_match("/https/",$keys->content) && preg_match("/youtu.be/",$keys->content)){
-              $array[] = count($keys->content);
+            if($keys->content){
+              $GetVideo = 1;
+            }
           }
         }
 
         foreach($ContentPostReply as $keys ){
           if(preg_match("/https/",$keys->reply_content) && preg_match("/youtu.be/",$keys->reply_content)){
-              $array2[] = count($keys->reply_content);
+            if($keys->content){
+              $GetVideo2 = 1;
+            }
           }
         }
 
-        if(!empty($array) || !empty($array2)){
+        if(!empty($GetVideo) || !empty($GetVideo2)){
           $done1 = 'ok';
           $done2 = 'ok';
           $this->set(compact('done1','done2'));
@@ -121,37 +126,48 @@ class UsersController extends AppController
         $this->set(compact('user_id','username'));
 
 
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $userinfo = $this->request->getData();
-            $img_error = $userinfo['img_name']['error'];
-            $ext = $this->Image->CutExt_Lower($userinfo['img_name']['name']);
-            if($userinfo['img_name']['name'] !=='' && $img_error === 0 && $ext === '.jpg' || $ext === '.png'){
 
-              if ($user->icon !=='0.png'){
-                $this->Image->DeleteFile_2(P_COMPRE_IMG,P_PROTO_IMG,$user->icon);
-              }
-
-              $day = time();
-              $img_adress =  $day.$user_id.$ext;
-              $user->icon = $img_adress;
-
-              list($baseImage,$width,$hight) = $this->Image->images($userinfo['img_name']['tmp_name'],P_PROTO_IMG,$img_adress);
-              $image = imagecreatetruecolor(ICON_SIZE, ICON_SIZE); // サイズを指定して新しい画像のキャンバスを作成
-
-              // 画像のコピーと伸縮
-              $this->Image->CreatTtumb($image,$baseImage,P_COMPRE_IMG,$width,$hight,$img_adress);
-            }elseif($userinfo['img_name']['name'] ===''){
-              // 画像を変更しない場合はスルー
+            if(isset($userinfo['img_name']['error']) && $userinfo['img_name']['error'] === 0){
+              $img_error = $userinfo['img_name']['error'];
             }else {
-              $this->Flash->error(__('画像のサイズが大きすぎます'));
+              $img_error = 0;
+            }
+
+            if(isset($userinfo['img_name']['name']) && $img_error === 0){
+              $ext = $this->Image->CutExt_Lower($userinfo['img_name']['name']);
+              if(isset($userinfo['img_name']['name']) && $userinfo['img_name']['name'] !=='' && $img_error === 0 && $ext === '.jpg' || $ext === '.png'){
+
+                if ($user->icon !=='0.png'){
+                  $this->Image->DeleteFile_2(P_COMPRE_IMG,P_PROTO_IMG,$user->icon);
+                }
+
+                $day = time();
+                $img_adress =  $day.$user_id.$ext;
+                $user->icon = $img_adress;
+
+                list($baseImage,$width,$hight) = $this->Image->images($userinfo['img_name']['tmp_name'],P_PROTO_IMG,$img_adress);
+                $image = imagecreatetruecolor(ICON_SIZE, ICON_SIZE); // サイズを指定して新しい画像のキャンバスを作成
+
+                // 画像のコピーと伸縮
+                $this->Image->CreatTtumb($image,$baseImage,P_COMPRE_IMG,$width,$hight,$img_adress);
+              }elseif($userinfo['img_name']['name'] ===''){
+                // 画像を変更しない場合はスルー
+              }else {
+                $this->Flash->error(__('画像のサイズが大きすぎます'));
+              }
             }
 
 
             if ($this->Users->save($user)) {
               return $this->redirect(['controller' => 'users','action' => 'edit/'.$user->id]);
+            }else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
     }
@@ -215,7 +231,7 @@ class UsersController extends AppController
 
       if ($this->Users->delete($user)) {
         $this->Flash->success(__('The user has been deleted.'));
-        $this->request->session()->destroy();
+        $this->request->getSession()->destroy();
         return $this->redirect(['action' => 'add']);
       } else {
           $this->Flash->error(__('The user could not be deleted. Please, try again.'));
@@ -253,7 +269,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
       parent::beforeFilter($event);
-      $this->Auth->allow(['add','logout']);
+      $this->Auth->allow(['add','logout','edit']);
     }
 
     public function isAuthorized($user = null)

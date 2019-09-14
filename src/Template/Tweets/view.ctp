@@ -76,7 +76,7 @@
 <div class="TweetPostSection">
   <?php if($username): ?>
   <div class="TweetPostFormBox">
-    <?= $this->Form->create('replys',['enctype' => 'multipart/form-data','url' => ['controller' => 'Replys','action' => 'add']]) ?>
+    <?= $this->Form->create(null,['type' => 'file','url' => ['controller' => 'Replys','action' => 'add']]) ?>
     <?= $this->Form->textarea('reply_content',['placeholder'=>'投稿内容は200文字以下で,画像は'.$this->Link->CutIntFromImagesize(MAX_FILE_SIZE).'M以下の.jpgか.pngのみUPできます。']) ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
     <?= $this->Form->hidden('MAX_FILE_SIZE',['value' => MAX_FILE_SIZE]) ?>

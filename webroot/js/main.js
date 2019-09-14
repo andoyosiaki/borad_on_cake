@@ -1,12 +1,16 @@
 $(function(){
 
-  $(document).click(function(event) {
-    if(!$(event.target).closest('.ProfileEditTrigger,.ProfileEditBox').length) {
-      $('.ProfileEditBox').fadeOut();
-    } else {
-      $('.ProfileEditBox').fadeIn();
-    }
+  // $(document).click(function(event) {
+  //   if(!$(event.target).closest('.ProfileEditTrigger,.ProfileEditBox').length) {
+  //     $('.ProfileEditBox').fadeOut();
+  //   } else {
+  //     $('.ProfileEditBox').fadeIn();
+  //   }
+  // });
+  $('.ProfileEditTrigger').on('click',function(){
+    $('.ProfileEditBox').fadeToggle();
   });
+
 
 
   $('.slider').slick({

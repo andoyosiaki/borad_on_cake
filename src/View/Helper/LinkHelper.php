@@ -79,6 +79,4 @@ class LinkHelper extends Helper
       return  substr($datas,-8,-6);
     }
   }
-
-
 }

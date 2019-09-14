@@ -85,6 +85,13 @@ h1,h2,h3{
   outline: none!important;
 }
 
+@mixin FontAewsomeFree($font){
+  font-family: "Font Awesome 5 FREE";
+  content: $font;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
 .message{
   text-align: center;
   padding: 10px;
@@ -181,24 +188,44 @@ h1,h2,h3{
       padding-left: 0;
       display: flex;
       justify-content: flex-end;
-        .NavigationItems{
-          margin-left: 20px;
-          line-height: 1;
-          list-style: none;
-            a{
-              padding:7px 10px;
-              border: 1px solid $sub_color1;
-              border-radius: 3px;
-              display: block;
-              color:$sub_color1;
-                &:hover{
-                  box-shadow: 2px 2px 3px;
-                }
-            }
+      .NavigationItems{
+        margin-left: 20px;
+        line-height: 1;
+        list-style: none;
+        a{
+          padding:17px 10px;
+          display: block;
+          color:$sub_color1;
+          border-radius: 50%;
+          &:hover{
+            box-shadow: 2px 2px 3px;
+          }
         }
+      }
     }
   }
 }
+
+
+$FontAwesomeFreeLoop:(
+  #Mypage:"\f007",
+  #Signin:"\f2f6",
+  #Signout:"\f2f5",
+  #Register:"\f005"
+);
+
+@each $id,$font in $FontAwesomeFreeLoop{
+  #{$id}{
+    :before{
+      font-family: "Font Awesome 5 FREE";
+      content: $font;
+      font-weight: 400;
+      margin-right: 5px;
+    }
+  }
+}
+
+
 
 
 /*------------------------*/
@@ -348,7 +375,7 @@ main{
         .YoutubeTitle{
           font-size: 0.8rem;
           margin-top: 20px;
-          &:before{
+          :before{
             font-family: "Font Awesome 5 Brands";
             content:"\f167";
             font-weight: 400;
@@ -547,6 +574,13 @@ footer{
   padding: 20px 10px 3px;
   a{
     color: $sub_color1;
+    &:before{
+      font-family: "Font Awesome 5 FREE";
+      content: "\f1f9";
+      font-weight: 400;
+      margin-right: 5px;
+      color: #222;
+    }
   }
 }
 

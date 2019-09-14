@@ -5973,14 +5973,41 @@ h1, h2, h3 {
   list-style: none;
 }
 .Navigation .NavigationBox .NavigationList .NavigationItems a {
-  padding: 7px 10px;
-  border: 1px solid #555;
-  border-radius: 3px;
+  padding: 17px 10px;
   display: block;
   color: #555;
+  border-radius: 50%;
 }
 .Navigation .NavigationBox .NavigationList .NavigationItems a:hover {
   box-shadow: 2px 2px 3px;
+}
+
+#Mypage :before {
+  font-family: "Font Awesome 5 FREE";
+  content: "";
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+#Signin :before {
+  font-family: "Font Awesome 5 FREE";
+  content: "";
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+#Signout :before {
+  font-family: "Font Awesome 5 FREE";
+  content: "";
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+#Register :before {
+  font-family: "Font Awesome 5 FREE";
+  content: "";
+  font-weight: 400;
+  margin-right: 5px;
 }
 
 /*------------------------*/
@@ -6134,7 +6161,7 @@ main .MainArticle .MainAuthorPostBox .MainPostBox .YoutubeTitle {
   font-size: 0.8rem;
   margin-top: 20px;
 }
-main .MainArticle .MainAuthorPostBox .MainPostBox .YoutubeTitle:before {
+main .MainArticle .MainAuthorPostBox .MainPostBox .YoutubeTitle :before {
   font-family: "Font Awesome 5 Brands";
   content: "\f167";
   font-weight: 400;
@@ -6322,6 +6349,13 @@ footer {
 }
 footer a {
   color: #555;
+}
+footer a:before {
+  font-family: "Font Awesome 5 FREE";
+  content: "\f1f9";
+  font-weight: 400;
+  margin-right: 5px;
+  color: #222;
 }
 
 /*------------------------*/

@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
-
+use Cake\I18n\Time;
 /**
  * Tweets Controller
  *
@@ -32,7 +32,7 @@ class TweetsController extends AppController
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
         $this->set(compact('user_id','username'));
-        
+
         $tweets = $this->paginate($this->Tweets);
         $this->set(compact('tweets'));
 
@@ -84,8 +84,7 @@ class TweetsController extends AppController
                return $this->redirect(['action' => 'index']);exit();
             }
             $tweet->user_id = $user_id;
-            $tweet->create_at = time();
-
+            $tweet->create_at = new Time(date('Y-m-d H:i:s'));
 
             $post = $this->request->getData();
             $img_error = $post['img_name']['error'];
@@ -192,7 +191,7 @@ class TweetsController extends AppController
 
     public function beforeFilter(Event $event){
       parent::beforeFilter($event);
-      $this->Auth->allow(['index']);
+      $this->Auth->allow(['index','view']);
     }
 
     public function isAuthorized($user = null){

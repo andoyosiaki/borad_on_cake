@@ -89,8 +89,8 @@
   <div class="InductionLoginBox">
     <p>ログインすると投稿可能になります。</p>
     <div class="Induction">
-      <?= $this->Html->link('Login',['controller'=>'users','action'=>'login']) ?>
-      <?= $this->Html->link('Register',['controller'=>'users','action'=>'add']) ?>
+      <?= $this->Html->link('Signin',['controller'=>'users','action'=>'login'],['class' => 'AnchorButton_Login']) ?>
+      <?= $this->Html->link('Register',['controller'=>'users','action'=>'add'],['class' => 'AnchorButton_Register']) ?>
     </div>
   </div>
   <?php endif; ?>

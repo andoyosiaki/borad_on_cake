@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Replys Controller
@@ -66,7 +67,7 @@ class ReplysController extends AppController
         if ($this->request->is('post')) {
             $reply = $this->Replys->patchEntity($reply, $this->request->getData());
             $reply->user_id = $user_id;
-            $reply->create_at = time();
+            $reply->create_at = new Time(date('Y-m-d H:i:s'));
 
             $post = $this->request->getData();
             if($reply->reply_img === null){
@@ -166,29 +167,27 @@ class ReplysController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $reply = $this->Replys->get($id);
+      $this->request->allowMethod(['post', 'delete']);
+      $reply = $this->Replys->get($id);
 
-        $max = $this->Replys->find()->where(['tweet_id' =>$reply->tweet_id])->count();
-        $tweetsTable = $this->getTableLocator()->get('Tweets');
-        $newcount = $tweetsTable->get($reply->tweet_id);
-        $newcount->maxpost = ($max - 1);
-        $tweetsTable->save($newcount);
+      $max = $this->Replys->find()->where(['tweet_id' =>$reply->tweet_id])->count();
+      $tweetsTable = $this->getTableLocator()->get('Tweets');
+      $newcount = $tweetsTable->get($reply->tweet_id);
+      $newcount->maxpost = ($max - 1);
+      $tweetsTable->save($newcount);
 
 
-        if(!empty($reply['reply_img'])){
-          $this->Image->DeleteFile_2(R_PROTO_IMG,R_COMPRE_IMG,$reply['reply_img']);
-        }
+      if(!empty($reply['reply_img'])){
+        $this->Image->DeleteFile_2(R_PROTO_IMG,R_COMPRE_IMG,$reply['reply_img']);
+      }
 
-        if ($this->Replys->delete($reply)) {
-
-            $this->Flash->success(__('The reply has been deleted.'));
-            return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
-        } else {
-            $this->Flash->error(__('The reply could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['controller' => 'tweets','action' => 'index']);
+      if ($this->Replys->delete($reply)) {
+        $this->Flash->success(__('The reply has been deleted.'));
+        return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
+      } else {
+          $this->Flash->error(__('The reply could not be deleted. Please, try again.'));
+      }
+      return $this->redirect(['controller' => 'tweets','action' => 'index']);
     }
 
     public function beforeFilter(Event $event){
@@ -199,8 +198,8 @@ class ReplysController extends AppController
     public function isAuthorized($user = null){
       $action = $this->request->parames['action'];
 
-        if(in_array($action,['view'])){
-        return true;
+      if(in_array($action,['view'])){
+      return true;
       }
 
       if($user['role'] === 'user'){

@@ -34,9 +34,9 @@ class TweetsController extends AppController
       $user_id = $this->Session->read('user_id');
       $this->set(compact('user_id','username'));
 
-        $tweets = $this->paginate($this->Tweets);
-        $this->set(compact('tweets'));
-        $this->set(compact('key'));
+      $tweets = $this->paginate($this->Tweets);
+      $this->set(compact('tweets'));
+      $this->set(compact('key'));
 
     }
 
@@ -58,9 +58,17 @@ class TweetsController extends AppController
         $user_id = $this->Session->read('user_id');
         $this->set(compact('user_id','username'));
 
-
         $result = $this->Tweets->Replys->find()->contain(['Users'])->where(['tweet_id' => $id]);
         $this->set(compact('result'));
+
+        $desc = $this->Tweets->find()->where(['id' => $id]);
+
+        foreach ($desc as $key) {
+          $restriction = $key['restriction'];
+          $owner = $key['user_id'];
+        }
+        $this->set(compact('restriction','owner'));
+
     }
 
     /**
@@ -82,6 +90,7 @@ class TweetsController extends AppController
                $this->Flash->error(__('２００文字以内でお願いします'));
                return $this->redirect(['action' => 'index']);exit();
             }
+
             $tweet->user_id = $user_id;
             $tweet->create_at = new Time(date('Y-m-d H:i:s'));
 
@@ -108,6 +117,8 @@ class TweetsController extends AppController
             }else {
               $tweet->image_pass = 0;
             }
+
+            $tweet->restriction = $post['restriction'];
 
             if(isset($img_error) && $img_error === 0 || $post['content']){
               if ($this->Tweets->save($tweet)) {

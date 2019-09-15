@@ -82,6 +82,11 @@ class TweetsTable extends Table
             ->maxLength('image_pass', 255)
             ->allowEmptyFile('image_pass');
 
+        $validator
+            ->scalar('restriction')
+            ->maxLength('restriction', 255)
+            ->notEmptyString('restriction');
+
         return $validator;
     }
 

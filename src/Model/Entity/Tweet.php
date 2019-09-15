@@ -36,6 +36,7 @@ class Tweet extends Entity
         'create_at' => true,
         'image_pass' => true,
         'user' => true,
-        'replys' => true
+        'replys' => true,
+        'restriction' => true
     ];
 }

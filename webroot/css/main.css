@@ -4572,6 +4572,23 @@ h1, h2, h3 {
 .TweetPostSection .TweetPostFormBox {
   max-width: 700px;
   margin: 0 auto; }
+.TweetPostSection .TweetPostFormBox .radioIntro {
+  background-color: #53777A;
+  color: #fff;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 3px;
+  cursor: default; }
+.TweetPostSection .TweetPostFormBox .radio {
+  display: flex;
+  margin: 10px 0 10px; }
+.TweetPostSection .TweetPostFormBox .radio :hover {
+  background-color: #fff; }
+.TweetPostSection .TweetPostFormBox .radio input {
+  margin: 0 !important; }
+.TweetPostSection .TweetPostFormBox .radio label {
+  margin-left: 20px;
+  padding: 10px 15px !important; }
 .TweetPostSection .TweetPostFormBox .Textarea {
   border: 2px solid #555; }
 .TweetPostSection .InductionLoginBox {
@@ -4699,6 +4716,20 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .DeleteIconBox :before {
   font-weight: 400;
   margin-right: 5px;
   color: #ccc; }
+main .MainArticle .MainAuthorPostBox .TinkerBox .RestrictionBox {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-left: 15px; }
+main .MainArticle .MainAuthorPostBox .TinkerBox .RestrictionBox .Opend {
+  background: skyblue;
+  color: #fff; }
+main .MainArticle .MainAuthorPostBox .TinkerBox .RestrictionBox .Closed {
+  background: tomato;
+  color: #fff; }
+main .MainArticle .MainAuthorPostBox .TinkerBox .RestrictionBox span {
+  padding: 5px 2px;
+  border-radius: 3px; }
 
 /*------------------------*/
 /*Mypage.php*/
@@ -4936,6 +4967,12 @@ footer a:before {
     display: none !important; }
 
   footer p {
-    font-size: 0.8rem !important; } }
+    font-size: 0.8rem !important; }
+
+  .radio {
+    display: block!important;}
+
+  .radio label {
+    margin-left: 0!important;} }
 
 /*# sourceMappingURL=main.css.map */

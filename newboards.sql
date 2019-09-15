@@ -37,8 +37,9 @@ CREATE TABLE `tweets` (
   `maxpost` int(11) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `image_pass` varchar(255) DEFAULT NULL,
+  `restriction` varchar(255) DEFAULT 'opened',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tweets`

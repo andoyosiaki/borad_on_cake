@@ -3,6 +3,10 @@
   <?= $this->element('how_to_post_youtube') ?>
   <div class="TweetPostFormBox">
     <?= $this->Form->create('tweets',['type' => 'file','url'=>['action' => 'add']]) ?>
+    <label class="radioIntro">あなたの投稿に他ユーザーからの返信を許可するか選べます</label>
+    <div class="radio">
+    <?= $this->Form->radio('restriction',['opend' => '　書き込みを許可する。','closed' => '　書き込みを許可しない'],['value'=>'opend']) ?>
+    </div>
     <?= $this->Form->textarea('content',['class' => 'Textarea','placeholder'=>'投稿内容は200文字以下で,画像は'.$this->Link->CutIntFromImagesize(MAX_FILE_SIZE).'M以下の.jpgか.pngのみUPできます。']) ?>
     <?= $this->Form->error('content') ?>
     <label for="File" id="LabelFile"><i class="far fa-image fa-2x "></i></label>
@@ -57,7 +61,10 @@
         <?= $this->Html->link('',['controller' => 'tweets','action' =>'view',$tweet->id]) ?>
         <?php if($tweet->maxpost > 0){ echo $tweet->maxpost;} ?>
         </div>
-        <?php if($tweet->maxpost > 0): ?><span class="MaxReplayPost"><?php $tweet->maxpost; ?></span><?php endif; ?>
+        <?php if($tweet->maxpost > 0): ?><div class="MaxReplayPost"><?php $tweet->maxpost; ?></div><?php endif; ?>
+        <div class="RestrictionBox">
+        <?php if($tweet->restriction === 'opend'){ ?><div class="Opend"><span>制限無し</span></div><?php } elseif($tweet->restriction === 'closed'){ ?><div class="Closed"><span>制限有り</span></div><?php } ?>
+        </div>
         <?php if($username === $tweet->user->username): ?>
         <div class="DeleteIconBox">
         <?= $this->Form->postLink('',['action' => 'delete',$tweet->id],['confirm'=>'削除しますか?']); ?>

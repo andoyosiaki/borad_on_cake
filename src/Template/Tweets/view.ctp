@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="MainPostBox">
-        <p><?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweets->reply_content); ?></p>
+        <?php list($AnchorUrl,$YoutubeUrl,$ImageUrl,$YoutubeTitle) = $this->Link->CreateLink($tweets->reply_content); ?>
         <p class="MainPost"><?= nl2br($AnchorUrl); ?></p>
         <?php if(isset($YoutubeUrl)): ?>
         <p class='YoutubeTitle'><a href="<?= $YoutubeUrl ?>" target="_blank"><?= $YoutubeTitle ?></a></p>
@@ -73,8 +73,9 @@
   <?php endforeach; ?>
 </main>
 
+
 <div class="TweetPostSection">
-  <?php if($username): ?>
+  <?php if($restriction !=='closed' && $username !==null || $owner === $user_id ): ?>
   <div class="TweetPostFormBox">
     <?= $this->Form->create(null,['type' => 'file','url' => ['controller' => 'Replys','action' => 'add']]) ?>
     <?= $this->Form->textarea('reply_content',['placeholder'=>'投稿内容は200文字以下で,画像は'.$this->Link->CutIntFromImagesize(MAX_FILE_SIZE).'M以下の.jpgか.pngのみUPできます。']) ?>
@@ -85,7 +86,7 @@
     <?= $this->Form->submit(' 送 信 ',['class' => 'reset PostButton']) ?>
     <?= $this->Form->end() ?>
   </div>
-  <?php elseif(empty($username)): ?>
+<?php elseif(empty($username)): ?>
   <div class="InductionLoginBox">
     <p>ログインすると投稿可能になります。</p>
     <div class="Induction">

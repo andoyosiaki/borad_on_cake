@@ -34,11 +34,11 @@
  //アイコンサイズ
  define('ICON_SIZE',100);
 
- //cookie投稿制限
+ //cookie投稿制限 (未実装)
  define('INTERVAL',1);
 
   //youtube_APIキー
- define('YOUTUBE_API',);
+ define('YOUTUBE_API','AIzaSyAqdjwoq19Gdyqdfu4biD8zMyPQipQsiMQ');
 
 
 

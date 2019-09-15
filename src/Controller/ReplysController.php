@@ -97,11 +97,11 @@ class ReplysController extends AppController
                 $image = imagecreatetruecolor(THUMB_WIDTH, THUMB_HEIGHT);
                 $this->Image->CreatTtumb($image,$baseImage,R_COMPRE_IMG,$width,$hight,$img_adress);
               }else {
-                $reply->reply_img = 0;
+                $this->Flash->error(__('The tweet could not be saved. Please, try again.'));
+                return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
               }
             }else {
-              $this->Flash->error(__('The tweet could not be saved. Please, try again.'));
-              return $this->redirect(['controller' => 'tweets','action' => 'view/'.$reply->tweet_id]);
+              $img_error = 0;
             }
 
           if($img_error === 0 || $reply->reply_content){

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Http\Cookie\Cookie;
 use Cake\Event\Event;
 use Cake\I18n\Time;
 /**
@@ -29,12 +30,13 @@ class TweetsController extends AppController
     public function index()
     {
 
-        $username = $this->Session->read('username');
-        $user_id = $this->Session->read('user_id');
-        $this->set(compact('user_id','username'));
+      $username = $this->Session->read('username');
+      $user_id = $this->Session->read('user_id');
+      $this->set(compact('user_id','username'));
 
         $tweets = $this->paginate($this->Tweets);
         $this->set(compact('tweets'));
+        $this->set(compact('key'));
 
     }
 
@@ -50,7 +52,6 @@ class TweetsController extends AppController
         $tweet = $this->Tweets->get($id, [
             'contain' => ['Users', 'Replys']
         ]);
-
         $this->set('tweet', $tweet);
 
         $username = $this->Session->read('username');
@@ -108,7 +109,7 @@ class TweetsController extends AppController
               $tweet->image_pass = 0;
             }
 
-            if($img_error === 0 || $post['content']){
+            if(isset($img_error) && $img_error === 0 || $post['content']){
               if ($this->Tweets->save($tweet)) {
                  return $this->redirect(['action' => 'index']);
               }

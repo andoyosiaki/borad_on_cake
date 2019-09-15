@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Http\Cookie\Cookie;
 use Cake\I18n\Time;
 /**
  * Users Controller
@@ -61,6 +62,11 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            $userinfo  =  $this->request->getData();
+            $this->response = $this->response->withCookie(new Cookie("username",$userinfo['username'],new Time("+5 day"),"/","",false,false));
+            $this->response = $this->response->withCookie(new Cookie("password",$userinfo['password'],new Time("+5 day"),"/","",false,false));
+
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -124,9 +130,6 @@ class UsersController extends AppController
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');
         $this->set(compact('user_id','username'));
-
-
-
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -242,19 +245,32 @@ class UsersController extends AppController
 
     public function login()
     {
+      $username = $this->request->getCookie('username');
+      $password = $this->request->getCookie('password');
+      $this->set(compact('username','password'));
+      // $this->response = $this->response->withExpiredCookie(new Cookie("username"));
+      // $this->response = $this->response->withExpiredCookie(new Cookie("password"));
+
       if($this->request->isPost()){
         $user = $this->Auth->identify();
-
         if(!empty($user)){
           $this->Auth->setUser($user);
 
           $this->Session->write(['username' => $user['username'],'user_id' => $user['id']]);
           $username = $this->Session->read('username');
           $user_id = $this->Session->read('user_id');
-          $this->set(compact('userid','user_id'));
+          $this->set(compact('username','user_id'));
+
+          // $userinf = $this->request->getData();
+          // $this->response = $this->response->withCookie(new Cookie("usernames",$userinf['username'],new Time("+5 day"),"/","",false,false));
+          // $this->response = $this->response->withCookie(new Cookie("passwords",$userinf['password'],new Time("+5 day"),"/","",false,false));
+          // $usernames = $this->request->getCookie('usernames');
+          // $passwords = $this->request->getCookie('passwords');
+          // $this->set(compact('usernames','passwords'));
+
+
           $this->Flash->success(__('ログイン成功！'));
           return $this->redirect($this->Auth->redirectUrl());
-
         }else {
           $this->Flash->error('ユーザー名かパスワードが間違っています');
         }
@@ -263,7 +279,9 @@ class UsersController extends AppController
 
     public function logout()
     {
-    $this->request->getSession()->destroy();
+      $this->response = $this->response->withExpiredCookie(new Cookie("username"));
+      $this->response = $this->response->withExpiredCookie(new Cookie("password"));
+      $this->request->getSession()->destroy();
     }
 
     public function beforeFilter(Event $event)

@@ -37,7 +37,7 @@ CREATE TABLE `tweets` (
   `maxpost` int(11) DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   `image_pass` varchar(255) DEFAULT NULL,
-  `restriction` varchar(255) DEFAULT 'opened',
+  `restriction` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 

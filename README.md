@@ -80,6 +80,7 @@ youtubeのurlから11桁のIDを切り出して加工してサムネイルを取
 画像はDBに保存してあるので取り出すのは簡単なのですが、youtubeのサムネルはurlが含まれている投稿のみを正規表現を使って探し出して表示させています。  
 上記の処理は`UsersController.php`の`edit()`ファンクションの94〜128辺りで行っています。  
 `view`でのサムネイルとタイトルの表示処理は`View\Helper\LinkHelper.php`の`CreateYoutubeThumb()`で行っています。  
+<img src="https://user-images.githubusercontent.com/52596476/64935254-2a1b5980-d88b-11e9-81a7-ad032ff4ea02.png" width="600">  
 PC表示ではslickスライダーの表示に問題はないのですが、スマホで見た場合にスライダーのarrowボタンがうまく表示されないのと、サムネイルが小さくなりすぎて操作性が悪くなってしまっています。  
 解決策としてはslickには他に使用できるレイアウトがあるので、そちらに変更するかもしれません。こんな感じのが良いかもしれないです。  
 <img src="https://user-images.githubusercontent.com/52596476/64934309-e6bdec80-d884-11e9-85ca-a795f7e2b50a.png" width="600">

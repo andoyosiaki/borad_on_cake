@@ -50,7 +50,7 @@
 * youtubeAPI
 
 
-定数をどこで定義すれば良いのか、調べると色々出てきて迷ったのですが数も少ないので`bootstrap.php`で定義しています。  
+定数をどこで定義すれば良いのか,調べると色々出てきて迷ったのですが数も少ないので`bootstrap.php`で定義しています。  
 youtubeAPIのキーもここで設定可能です。  
 他には独自のHelperやValidationを作成したり。各Controllerで使用する共通functionをコンポーネントに記載して使用しました。  
 shell

@@ -105,6 +105,7 @@ class UsersController extends AppController
         $ContentPostReply = $this->Replys->find()->where(['user_id' => $id]);
         $this->set(compact('ContentPostTweet','ContentPostReply'));
 
+        //投稿の中からyoutubeのurlが含まれている投稿のみ取得
         foreach($ContentPostTweet as $keys ){
           if(preg_match("/https/",$keys->content) && preg_match("/youtu.be/",$keys->content)){
             if($keys->content){
@@ -112,7 +113,6 @@ class UsersController extends AppController
             }
           }
         }
-
         foreach($ContentPostReply as $keys ){
           if(preg_match("/https/",$keys->reply_content) && preg_match("/youtu.be/",$keys->reply_content)){
             if($keys->content){
@@ -126,6 +126,7 @@ class UsersController extends AppController
           $done2 = 'ok';
           $this->set(compact('done1','done2'));
         }
+
 
         $username = $this->Session->read('username');
         $user_id = $this->Session->read('user_id');

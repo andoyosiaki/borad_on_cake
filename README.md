@@ -57,7 +57,8 @@ shell
 
 
 ## 作った感想と今後の課題  
-(https://user-images.githubusercontent.com/52596476/64933823-f0922080-d881-11e9-8a1e-184c51dd9bf1.jpg)
+
+<img src="https://user-images.githubusercontent.com/52596476/64933823-f0922080-d881-11e9-8a1e-184c51dd9bf1.jpg">
 
 ①  12.urlリンク生成機能　14.youtube動画サムネイル&タイトル表示機能  
 今回はコンテンツ投稿時にurlが含まれていた場合は正規表現を使ってurlを検出して、`<a></a>`で囲ってリンクを自動生成させました。  

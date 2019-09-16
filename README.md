@@ -1,53 +1,97 @@
-# CakePHP Application Skeleton
+はじめに
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
+このアプリはPHPを独学で学習している私がアウトプットの１つとして作成したもので、セキュリティなどに問題があるかもしれません。  
+もし実際にアプリを動作させるような場合はローカル環境で動作させてください。
+あと、もし眼に余るようなトンデモナイ記述をしていたらそっと<a href="https://twitter.com/float_top">ツイッター</a>のDMにでも連絡いただければ幸いです。(；´Д`)
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 3.x.
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+アプリ名
+====
+**<a href="https://1.kagome.xyz/borad_on_cake/">「画像掲示板」 CakePHP.ver</a>**
 
-## Installation
+## 簡単な説明
+前作の<a href="https://board.kagomeee.com/">「画像掲示板」</a>をcakephpで作り変えました。  
+デザインやレイアウトは前作の物を流用していますが、機能面で新たに追加した物もあります。
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
 
-If Composer is installed globally, run
 
-```bash
-composer create-project --prefer-dist cakephp/app
-```
+## 機能
+1. 会員登録機能
+1. 会員情報変更機能
+1. 退会機能
+1. ユーザーアイコン変更機能
+1. コンテンツ投稿機能
+1. コンテンツ削除機能
+1. 返信機能
+1. 投稿画像サムネイル表示機能
+1. 画像詳細表示機能
+1. ~~投稿制限機能~~
+1. 返信可不可選択機能
+1. urlリンク生成機能
+1. 投稿画像一覧表示機能(mypage)
+1. youtube動画サムネイル&タイトル表示機能
+1. 投稿youtube動画サムネイル一覧表示機能(mypage)
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
-```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+## 開発環境
+使用言語・データーベース
+* PHP
+* HTML
+* CSS(SCSS)
+* MYSQL  
 
-```bash
-bin/cake server -p 8765
-```
+使用ツール・ライブラリ
+* vagrant
+* Atom Editor  
+* jquery
+* slick
+* fontawesome
+* youtubeAPI
 
-Then visit `http://localhost:8765` to see the welcome page.
 
-## Update
+定数をどこで定義すれば良いのか、調べると色々出てきて迷ったのですが数も少ないので`bootstrap.php`で定義しています。  
+youtubeAPIのキーもここで設定可能です。  
+他には独自のHelperやValidationを作成したり。各Controllerで使用する共通functionをコンポーネントに記載して使用しました。  
+shell
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
 
-## Configuration
+## 作った感想と今後の課題  
+(https://user-images.githubusercontent.com/52596476/64933823-f0922080-d881-11e9-8a1e-184c51dd9bf1.jpg)
 
-Read and edit `config/app.php` and setup the `'Datasources'` and any other
-configuration relevant for your application.
+①  12.urlリンク生成機能　14.youtube動画サムネイル&タイトル表示機能  
+今回はコンテンツ投稿時にurlが含まれていた場合は正規表現を使ってurlを検出して、`<a></a>`で囲ってリンクを自動生成させました。  
+これはネットにたくさん情報があったので簡単に実装できました。  
+ただしリンクが自動生成されるのは`https://`のみで`http://`ではurlは表示されますが、リンクは生成されません。  
+さらにもう少し正規表現を使って機能を増やしたいと思ったので、youtube動画のurlが投稿された場合は動画のサムネイルを表示させることにしました。  
+参考になった記事はこちら。[https://applica.info/youtube-thumbnail-acquisition]  
+youtubeのurlから11桁のIDを切り出して加工してサムネイルを取得することができました。  
+さらに欲が出て動画のタイトルも表示させたくなったのですが、これは流石に難しいと判断してyoutubeAPIに頼りました。  
+動画のサムネイル取得もAPIに頼れば楽だったのですが、一応正規表現の学習の一貫なので今回はタイトル取得のみAIPに頼っています。  
+上記の機能は`View\Helper\LinkHelper.php`の`CreateLink()`ファンクションで行っています。  
+現時点ではページが読み込まれる度にヘルパーで処理を行っているので、今後投稿が増えていくと処理が重くなると思います。  
+解決策としては素直にDBにタイトルとサムネイル画像のパスを格納しようかと思っています。  
 
-## Layout
+②  13.投稿画像一覧表示機能(mypage)　15.投稿youtube動画サムネイル一覧表示機能(mypage)  
+①で投稿された画像とyoutube動画のサムネイルをmypageにてjqueryのプラグインのslickを使って一覧表示させました。  
+画像はDBに保存してあるので取り出すのは簡単なのですが、youtubeのサムネルはurlが含まれている投稿のみを正規表現を使って探し出して表示させています。  
+上記の処理は`UsersController.php`の`edit()`ファンクションの94〜128辺りで行っています。  
+`view`でのサムネイルとタイトルの表示処理は`View\Helper\LinkHelper.php`の`CreateYoutubeThumb()`で行っています。  
+PC表示ではslickスライダーの表示に問題はないのですが、スマホで見た場合にスライダーのarrowボタンがうまく表示されないのと、サムネイルが小さくなりすぎて操作性が悪くなってしまっています。  
+解決策としてはslickには他にも使用できるレイアウトがあるので、そちらに変更するかもしれません。  
+こんなやつとか[画像を表示させる]  
 
-The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
-# borad_on_cake
-# borad_on_cake
+③  11.返信可不可選択機能  
+コンテンツを投稿する際に、他ユーザーからの返信を「許可する」or「許可しない」を選択できるようにしました。  
+「許可する」を選択してコンテンツを投稿すると、会員ならば誰でも投稿に対して返信する事ができます。  
+「許可しない」を選択すると投稿に対して、他ユーザーは返信する事が不可能になります。ただし、許可されないのは返信のみなので、他ユーザーは自由に投稿内容を閲覧する事ができます。  
+
+##今後実装したい機能や課題  
+①
+スマホで画像を投稿しようとすると出来ない場合がある。拡張子が問題なのかサイズの問題なのか。現在調査中。  
+たぶんjavascriptで色々しなきゃいけない気がします。
+
+②  
+qiitaの記事urlを投稿したときにその記事のタイトルも一緒に表示させたい。  
+今はurlとタイトルを２回コピペしなきゃいけなく面倒なので。
+qiitaAPIがあるのでやれるかもしれないです[https://qiita.com/leafia78/items/a252a09bbdf31bf770f4]

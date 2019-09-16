@@ -60,7 +60,7 @@ youtubeAPIのキーもここで設定可能です。
 
 またcakeの学習と並行してscssの学習も引き続き行っています。今回初めて`@each`を使ってループ処理をしたりもしました。  
 `webroot\sass\styles.scss`に記載しています。  
-参考になったサイト。[http://dim5.net/cakephp/sass-generate-css.html]
+参考になったサイト。[http://dim5.net/cakephp/sass-generate-css.html]
 
 ## 1  
 「12.urlリンク生成機能　14.youtube動画サムネイル&タイトル表示機能」  

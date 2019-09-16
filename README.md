@@ -51,13 +51,16 @@
 * youtubeAPI
 
 
+
+## 作った感想と今後の課題  
+
 定数をどこで定義すれば良いのか、色々出てきて迷ったのですが数も少ないので`bootstrap.php`で定義しています。  
 youtubeAPIのキーもここで設定可能です。  
 他には独自のHelperやValidationを作成したり。各Controllerで使用する共通functionをコンポーネントに記載して使用しました。  
 
-
-## 作った感想と今後の課題  
-
+またcakeの学習と並行してscssの学習も引き続き行っています。今回初めて`@each`を使ってループ処理をしたりもしました。  
+`webroot\sass\styles.scss`に記載しています。  
+参考になったサイト。[http://dim5.net/cakephp/sass-generate-css.html]
 
 ## 1  
 「12.urlリンク生成機能　14.youtube動画サムネイル&タイトル表示機能」  

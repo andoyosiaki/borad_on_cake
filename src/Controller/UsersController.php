@@ -105,7 +105,7 @@ class UsersController extends AppController
         $ContentPostReply = $this->Replys->find()->where(['user_id' => $id]);
         $this->set(compact('ContentPostTweet','ContentPostReply'));
 
-        //投稿の中からyoutubeのurlが含まれている投稿のみ取得
+        // //投稿の中からyoutubeのurlが含まれている投稿のみ取得
         foreach($ContentPostTweet as $keys ){
           if(preg_match("/https/",$keys->content) && preg_match("/youtu.be/",$keys->content)){
             if($keys->content){

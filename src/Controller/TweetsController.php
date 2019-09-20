@@ -36,7 +36,6 @@ class TweetsController extends AppController
 
       $tweets = $this->paginate($this->Tweets);
       $this->set(compact('tweets'));
-      $this->set(compact('key'));
 
     }
 

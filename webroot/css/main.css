@@ -6108,6 +6108,39 @@ h1, h2, h3 {
 }
 
 /*------------------------*/
+/*serch.ctp & index.ctp*/
+/*------------------------*/
+.TweetPostSection_SerchWrap {
+  background: #C02942;
+  padding: 10px 0;
+  border-top: 2px solid #222;
+  border-bottom: 2px solid #222;
+}
+.TweetPostSection_SerchWrap .TweetPostSection_SerchBox {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.TweetPostSection_SerchWrap .TweetPostSection_SerchBox label {
+  font-size: 1.2rem;
+  color: #ECD078;
+}
+.TweetPostSection_SerchWrap .TweetPostSection_SerchBox .FormLabel {
+  border: 2px solid #222;
+  padding: 20px 0;
+  font-size: 150%;
+}
+
+.FormSerch_CountSection {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.FormSerch_CountSection p {
+  padding: 0 15px;
+}
+
+/*------------------------*/
 /*main*/
 /*------------------------*/
 main {

@@ -201,6 +201,23 @@ class TweetsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
+    public function serch()
+    {
+      $username = $this->Session->read('username');
+      $user_id = $this->Session->read('user_id');
+      $this->set(compact('user_id','username'));
+
+      $text = $this->request->getData('data.replys');
+      if ($this->request->is('post') && $text !=='' && mb_strlen($text) > 1) {
+        $count = $this->Tweets->find('all')->contain(['Users'])->where(['content LIKE' => '%'.$text.'%'])->count();
+        $tweets = $this->Tweets->find('all')->contain(['Users'])->where(['content LIKE' => '%'.$text.'%']);
+        $this->set(compact('tweets','count'));
+      }else {
+        return $this->redirect(['action' => 'index']);
+      }
+    }
+
     public function beforeFilter(Event $event){
       parent::beforeFilter($event);
       $this->Auth->allow(['index','view']);

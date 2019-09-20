@@ -26,6 +26,15 @@
   <?php endif; ?>
 </div>
 
+<div class="TweetPostSection_SerchWrap">
+  <div class="TweetPostSection_SerchBox">
+  <?= $this->Form->create('text',['action' => 'serch']); ?>
+  <?= $this->Form->control('data[replys]',['label' => '投稿検索','class' => 'FormLabel']); ?>
+  <?= $this->Form->submit('送信',['class' => 'PostButton']); ?>
+  <?= $this->Form->end(); ?>
+  </div>
+</div>
+
 <main>
   <?php foreach($tweets as $tweet): ?>
   <article class="MainArticle">

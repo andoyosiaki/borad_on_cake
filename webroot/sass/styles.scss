@@ -227,8 +227,6 @@ $FontAwesomeFreeLoop:(
 }
 
 
-
-
 /*------------------------*/
   /*Reply_Posts.php*/
  /*------------------------*/
@@ -239,13 +237,13 @@ $FontAwesomeFreeLoop:(
   background-color: $common_color2;
   width: 100%;
   padding: 50px;
-    .InsertFormBox{
-      background-color: snow;
-      max-width: 500px;
-      margin: 0 auto;
-      border: 1px dashed #555;
-      padding: 20px 50px;
-    }
+  .InsertFormBox{
+    background-color: snow;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px dashed #555;
+    padding: 20px 50px;
+  }
 }
 
 #password,#username{
@@ -256,6 +254,7 @@ $FontAwesomeFreeLoop:(
   font-size: 0.8rem;
   padding: 5px 0 10px;
 }
+
 
 /*------------------------*/
   /*TweetPostSection*/
@@ -315,17 +314,53 @@ $FontAwesomeFreeLoop:(
     max-width: 500px;
     margin: 0 auto;
     text-align: center;
-      .Induction{
-        padding: 10px 0;
-          button{
-            margin: 0 10px;
-              &:hover{
-                box-shadow: 2px 2px 4px;
-              }
-          }
+    .Induction{
+      padding: 10px 0;
+      button{
+        margin: 0 10px;
+        &:hover{
+          box-shadow: 2px 2px 4px;
+        }
       }
+    }
   }
 }
+
+
+/*------------------------*/
+  /*serch.ctp & index.ctp*/
+/*------------------------*/
+
+.TweetPostSection_SerchWrap{
+  background: $common_color3;
+  padding: 10px 0;
+  border-top: 2px solid #222;
+  border-bottom: 2px solid #222;
+  .TweetPostSection_SerchBox{
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 15px;
+    label{
+      font-size: 1.2rem;
+      color: $common_color1;
+    }
+    .FormLabel{
+      border: 2px solid #222;
+      padding: 20px 0;
+      font-size: 150%;
+    }
+  }
+}
+
+.FormSerch_CountSection{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px 0;
+  p{
+    padding: 0 15px;
+  }
+}
+
 
 /*------------------------*/
   /*main*/

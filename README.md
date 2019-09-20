@@ -27,11 +27,12 @@
 1. 投稿画像サムネイル表示機能
 1. 画像詳細表示機能
 1. ~~投稿制限機能~~
-1. 返信可不可選択機能 new!!
-1. urlリンク生成機能 new!!
-1. 投稿画像一覧表示機能(mypage) new!!
-1. youtube動画サムネイル&タイトル表示機能 new!!
-1. 投稿youtube動画サムネイル一覧表示機能(mypage) new!!
+1. 返信可不可選択機能 <font color="red">new!!</font>
+1. urlリンク生成機能 <font color="red">new!!</font>
+1. 投稿画像一覧表示機能(mypage) <font color="red">new!!</font>
+1. youtube動画サムネイル&タイトル表示機能 <font color="red">new!!</font>
+1. 投稿youtube動画サムネイル一覧表示機能(mypage) <font color="red">new!!</font>
+1. 投稿検索機能 <font color="red">new!!</font> 9/21
 
 
 

@@ -1,4 +1,16 @@
+
+<div class="TweetPostSection_SerchWrap">
+  <div class="TweetPostSection_SerchBox">
+  <?= $this->Form->create('text',['action' => 'serch']); ?>
+  <?= $this->Form->control('data[replys]',['label' => false,'placeholder' => '投稿検索','class' => 'FormLabel']); ?>
+  <?= $this->Form->end(); ?>
+  </div>
+</div>
+
 <div class="TweetPostSection">
+  <div class="SerchForm_TriggerBox">
+  <a href="#" id="SerchFormTrigger"><i class="fas fa-search"></i>投稿検索</a>
+  </div>
   <?php if($username): ?>
   <?= $this->element('how_to_post_youtube') ?>
   <div class="TweetPostFormBox">
@@ -24,15 +36,6 @@
     </div>
   </div>
   <?php endif; ?>
-</div>
-
-<div class="TweetPostSection_SerchWrap">
-  <div class="TweetPostSection_SerchBox">
-  <?= $this->Form->create('text',['action' => 'serch']); ?>
-  <?= $this->Form->control('data[replys]',['label' => '投稿検索','class' => 'FormLabel']); ?>
-  <?= $this->Form->submit('送信',['class' => 'PostButton']); ?>
-  <?= $this->Form->end(); ?>
-  </div>
 </div>
 
 <main>

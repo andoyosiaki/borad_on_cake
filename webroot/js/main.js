@@ -1,17 +1,8 @@
 $(function(){
 
-  // $(document).click(function(event) {
-  //   if(!$(event.target).closest('.ProfileEditTrigger,.ProfileEditBox').length) {
-  //     $('.ProfileEditBox').fadeOut();
-  //   } else {
-  //     $('.ProfileEditBox').fadeIn();
-  //   }
-  // });
   $('.ProfileEditTrigger').on('click',function(){
     $('.ProfileEditBox').fadeToggle();
   });
-
-
 
   $('.slider').slick({
     arrows:true,
@@ -30,6 +21,14 @@ $(function(){
       $('.HowToPostYoutubeBox').fadeOut();
     } else {
       $('.HowToPostYoutubeBox').fadeIn();
+    }
+  });
+
+  $(document).click(function(event) {
+    if(!$(event.target).closest('#SerchFormTrigger,.TweetPostSection_SerchBox').length) {
+      $('.TweetPostSection_SerchWrap').fadeOut();
+    } else {
+      $('.TweetPostSection_SerchWrap').fadeIn();
     }
   });
 

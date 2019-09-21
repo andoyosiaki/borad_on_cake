@@ -261,7 +261,7 @@ $FontAwesomeFreeLoop:(
 /*------------------------*/
 
 .TweetPostSection{
-    padding:50px 0;
+    padding:10px 0 50px;
     background-color: $common_color2;
     .HowToPostYoutubeBox{
       max-width: 700px;
@@ -281,6 +281,23 @@ $FontAwesomeFreeLoop:(
         }
       }
     }
+  .SerchForm_TriggerBox{
+    max-width: 700px;
+    margin: 0 auto;
+    #SerchFormTrigger{
+    cursor: pointer;
+    background-color: $common_color1;
+    display: inline-block;
+    text-decoration: underline;
+    line-height: 2;
+    padding: 0 15px;
+    margin: 0 0 15px;
+    border-radius: 3px;
+    .fa-search{
+      margin-right: 5px;
+    }
+    }
+  }
   .TweetPostFormBox{
     max-width: 700px;
     margin: 0 auto;
@@ -336,6 +353,7 @@ $FontAwesomeFreeLoop:(
   padding: 10px 0;
   border-top: 2px solid #222;
   border-bottom: 2px solid #222;
+  display: none;
   .TweetPostSection_SerchBox{
     max-width: 500px;
     margin: 0 auto;

@@ -351,7 +351,6 @@ $FontAwesomeFreeLoop:(
 .TweetPostSection_SerchWrap{
   background: $common_color3;
   padding: 10px 0;
-  border-top: 2px solid #222;
   border-bottom: 2px solid #222;
   display: none;
   .TweetPostSection_SerchBox{
@@ -801,6 +800,10 @@ footer{
       }
     }
   }
+}
+
+.SerchForm_TriggerBox{
+  padding: 0 15px;
 }
 
 #HowToPostYoutubeTrigger{

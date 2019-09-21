@@ -6130,7 +6130,6 @@ h1, h2, h3 {
 .TweetPostSection_SerchWrap {
   background: #C02942;
   padding: 10px 0;
-  border-top: 2px solid #222;
   border-bottom: 2px solid #222;
   display: none;
 }
@@ -6542,6 +6541,10 @@ footer a:before {
   }
   .ProfileSectionWrapper .ProfileSection .ProfileBox .ProfileInnerBox .S-IntoroductionBox .name {
     font-size: 0.8rem;
+  }
+
+  .SerchForm_TriggerBox {
+    padding: 0 15px;
   }
 
   #HowToPostYoutubeTrigger {

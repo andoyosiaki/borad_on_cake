@@ -135,21 +135,6 @@ class TweetsController extends AppController
     }
 
     /**
-     * Edit method
-     *
-     * @param string|null $id Tweet id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function image($id = null)
-    {
-        $tweet = $this->Tweets->get($id, [
-            'contain' => []
-        ]);
-         $this->set(compact('tweet'));
-    }
-
-    /**
      * Delete method
      *
      * @param string|null $id Tweet id.
@@ -199,6 +184,14 @@ class TweetsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function image($id = null)
+    {
+        $tweet = $this->Tweets->get($id, [
+            'contain' => []
+        ]);
+         $this->set(compact('tweet'));
     }
 
 

@@ -15,22 +15,8 @@ use Cake\I18n\Time;
 class ReplysController extends AppController
 {
 
-      public $components = ['Image'];
+    public $components = ['Image'];
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Tweets', 'Users']
-        ];
-        $replys = $this->paginate($this->Replys);
-
-        $this->set(compact('replys'));
-    }
 
     /**
      * View method
@@ -44,7 +30,6 @@ class ReplysController extends AppController
         $reply = $this->Replys->get($id, [
             'contain' => ['Tweets', 'Users']
         ]);
-
         $this->set('reply', $reply);
 
         $username = $this->Session->read('username');

@@ -112,8 +112,6 @@ class UsersController extends AppController
               $GetVideo = 1;
             }
           }
-        }
-        foreach($ContentPostReply as $keys ){
           if(preg_match("/https/",$keys->reply_content) && preg_match("/youtu.be/",$keys->reply_content)){
             if($keys->content){
               $GetVideo2 = 1;

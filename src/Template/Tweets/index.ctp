@@ -8,10 +8,10 @@
 </div>
 
 <div class="TweetPostSection">
-  <div class="SerchForm_TriggerBox">
-  <a href="#" id="SerchFormTrigger"><i class="fas fa-search"></i>投稿検索</a>
-  </div>
   <?php if($username): ?>
+  <div class="SerchForm_TriggerBox">
+    <a href="#" id="SerchFormTrigger"><i class="fas fa-search"></i>投稿検索</a>
+  </div>
   <?= $this->element('how_to_post_youtube') ?>
   <div class="TweetPostFormBox">
     <?= $this->Form->create('tweets',['type' => 'file','url'=>['action' => 'add']]) ?>

@@ -6407,11 +6407,13 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .RestrictionBox span {
   padding: 20px 10px 0;
 }
 .ImageSectionWrap .innerwrap .ImageSection .CutTitle {
-  font-size: 0.8rem;
-  height: 40px;
-  margin: 5px 0;
+  font-size: 1.3rem;
+  height: auto;
   padding: 0 5px;
-  border-right: 1px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #555;
 }
 .ImageSectionWrap .innerwrap .ImageSection .ImageSection_Title {
   box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
@@ -6429,6 +6431,13 @@ main .MainArticle .MainAuthorPostBox .TinkerBox .RestrictionBox span {
   padding: 5px 7px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.slider-5-thum .slick-slide {
+  text-align: center !important;
+}
+.slider-5-thum .slick-slide img {
+  width: 100%;
 }
 
 /*------------------------*/
@@ -6552,7 +6561,7 @@ footer a:before {
   }
 
   .CutTitle {
-    font-size: 0.6rem !important;
+    font-size: 1rem !important;
   }
 
   .ProfileSectionWrapper .ProfileSection .ProfileBox {
@@ -6621,7 +6630,7 @@ footer a:before {
   }
 
   .CutTitle {
-    display: none !important;
+    font-size: 0.7rem !important;
   }
 
   .radio {

@@ -12,6 +12,19 @@ $(function(){
     slidesToScroll:4
   });
 
+  $('.slider-5-thum').slick({
+  arrows:true,
+  asNavFor:'.slider-5-nav',
+  });
+  $('.slider-5-nav').slick({
+  asNavFor:'.slider-5-thum',
+  focusOnSelect: true,
+  slidesToShow:4,
+  slidesToScroll:1,
+  dots: true,
+  arrows:false,
+  });
+
   $(function(){
     setTimeout("$('.message').fadeOut()", 4000)
   })

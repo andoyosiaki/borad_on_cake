@@ -2,6 +2,11 @@
 @import "./solid.scss";
 @import "./brands.scss";
 
+// .slick-prev{
+//   background: red!important;
+//   padding: 50px!important;
+// }
+
 body{
   color: #222;
   cursor: auto;
@@ -631,11 +636,13 @@ main{
       margin: 0 auto;
       padding: 20px 10px 0;
         .CutTitle{
-          font-size: 0.8rem;
-          height: 40px;
-          margin: 5px 0;
+          font-size: 1.3rem;
+          height: auto;
           padding: 0 5px;
-          border-right: 1px solid #555;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #555;
         }
       .ImageSection_Title{
         box-shadow: 0 7px 21px rgba(0, 0, 0, 0.36);
@@ -654,6 +661,15 @@ main{
           border-top-right-radius: 10px;
         }
       }
+    }
+  }
+}
+
+.slider-5-thum{
+  .slick-slide{
+  text-align: center!important;
+    img{
+      width: 100%;
     }
   }
 }
@@ -811,7 +827,7 @@ footer{
 }
 
 .CutTitle{
-  font-size: 0.6rem!important;
+  font-size: 1rem!important;
 }
 
 .ProfileSectionWrapper{
@@ -894,7 +910,8 @@ footer{
   }
 
   .CutTitle{
-    display: none!important;
+    font-size: 0.7rem!important;
+    // height: auto!important;
   }
 
   .radio{

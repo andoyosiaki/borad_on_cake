@@ -24,21 +24,25 @@ class LinkHelper extends Helper
       $RemoveUrlContent = str_replace('https://youtu.be/'.$uniqurl,'',$content);
       $YoutubeUrl = 'https://youtu.be/'.$uniqurl;
       $ImageUrl = 'https://i.ytimg.com/vi/'.$uniqurl.'/mqdefault.jpg';
+      // -- 復旧までこれ使う --
+      $YoutubeTitle = NULL;
+      return [$RemoveUrlContent,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
+      // -- 復旧までこれ使う --
 
-      if(isset($uniqurl)){
-        $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
-        $json = json_decode($url,true);
-        if(isset($json['items'][0])){
-          $YoutubeTitle = $json['items'][0]['snippet']['title'];
-          return [$RemoveUrlContent,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
-        }else {
-          $content = 'この動画は存在しません';
-          $YoutubeUrl = null;
-          $ImageUrl = null;
-          $YoutubeTitle = null;
-          return [$content,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
-        }
-      }
+      // if(isset($uniqurl)){
+      //   $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
+      //   $json = json_decode($url,true);
+      //   if(isset($json['items'][0])){
+      //     $YoutubeTitle = $json['items'][0]['snippet']['title'];
+      //     return [$RemoveUrlContent,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
+      //   }else {
+      //     $content = 'この動画は存在しません';
+      //     $YoutubeUrl = null;
+      //     $ImageUrl = null;
+      //     $YoutubeTitle = null;
+      //     return [$content,$YoutubeUrl,$ImageUrl,$YoutubeTitle];
+      //   }
+      // }
     }elseif(preg_match("/https/",$text) && !preg_match("/youtu.be/",$text)){
       label:
       $content = nl2br(mb_ereg_replace("(https?)(://[[:alnum:]\+\$\;\?\.%,!#~*/:@&=_-]+)", '<a target=”_blank” href="\1\2">\1\2</a>' , $text));
@@ -61,14 +65,18 @@ class LinkHelper extends Helper
       $uniqurl = substr($point,3,11);
       $YoutubeUrl = 'https://youtu.be/'.$uniqurl;
       $ImageUrl = 'https://i.ytimg.com/vi/'.$uniqurl.'/mqdefault.jpg';
-
-      if(isset($uniqurl)){
-        $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
-        $json = json_decode($url,true);
-        $youtubetitle = $json['items'][0]['snippet']['title'];
-        // $CutTitle =  mb_substr($youtubetitle,0,25);
-        return [$ImageUrl,$YoutubeUrl,$youtubetitle];
-      }
+      // -- 復旧までこれ使う --
+      $CutTitle = null;
+      return [$ImageUrl,$YoutubeUrl,$CutTitle];
+      // -- 復旧までこれ使う --
+      
+      // if(isset($uniqurl)){
+      //   $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
+      //   $json = json_decode($url,true);
+      //   $youtubetitle = $json['items'][0]['snippet']['title'];
+      //   $CutTitle =  mb_substr($youtubetitle,0,25);
+      //   return [$ImageUrl,$YoutubeUrl,$CutTitle];
+      // }
     }
   }
 

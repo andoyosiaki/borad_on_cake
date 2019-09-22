@@ -46,6 +46,46 @@
   </div>
 </div>
 
+<?php if(!empty($done) || !empty($done2)): ?>
+  <div class="ImageSectionWrap">
+    <div class="innerwrap">
+      <div class="ImageSection">
+        <div class="ImageSection_Title">
+          <p>-- 投稿動画一覧 --</p>
+        </div>
+        <ul class="slider-5-thum">
+          <?php foreach($ContentPostTweet as $keys): ?>
+          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->content) ?>
+          <?php if(preg_match("/youtu.be/",$keys->content) && !preg_match("/feature/",$keys->content)): ?>
+          <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
+          <?php endif; ?>
+          <?php endforeach; ?>
+          <?php foreach($ContentPostReply as $keys): ?>
+          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->reply_content) ?>
+          <?php if(preg_match("/youtu.be/",$keys->reply_content) && !preg_match("/feature/",$keys->reply_content)): ?>
+          <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
+          <?php endif; ?>
+          <?php endforeach; ?>
+        </ul>
+        <ul class="slider-5-nav">
+          <?php foreach($ContentPostTweet as $keys): ?>
+          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->content) ?>
+          <?php if(preg_match("/youtu.be/",$keys->content) && !preg_match("/feature/",$keys->content)): ?>
+          <li><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
+          <?php endif; ?>
+          <?php endforeach; ?>
+          <?php foreach($ContentPostReply as $keys): ?>
+          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->reply_content) ?>
+          <?php if(preg_match("/youtu.be/",$keys->reply_content) && !preg_match("/feature/",$keys->reply_content)): ?>
+          <li><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
+          <?php endif; ?>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
+
 <?php if($Images !== 0): ?>
 <div class="ImageSectionWrap">
   <div class="innerwrap">
@@ -67,32 +107,6 @@
     </div>
   </div>
 </div>
-<?php endif; ?>
-
-<?php if(!empty($done) || !empty($done2)): ?>
-  <div class="ImageSectionWrap">
-    <div class="innerwrap">
-      <div class="ImageSection">
-        <div class="ImageSection_Title">
-          <p>-- 投稿動画一覧 --</p>
-        </div>
-        <ul class="slider">
-          <?php foreach($ContentPostTweet as $keys): ?>
-          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->content) ?>
-          <?php if(preg_match("/youtu.be/",$keys->content) && !preg_match("/feature/",$keys->content)): ?>
-          <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
-          <?php endif; ?>
-          <?php endforeach; ?>
-          <?php foreach($ContentPostReply as $keys): ?>
-          <?php list($ImageUrl,$YoutubeUrl,$CutTitle) = $this->Link->CreateYoutubeThumb($keys->reply_content) ?>
-          <?php if(preg_match("/youtu.be/",$keys->reply_content) && !preg_match("/feature/",$keys->reply_content)): ?>
-          <li><p class="CutTitle"><?= $CutTitle ?></p><a target="_blank" href="<?= $YoutubeUrl ?>"><img src="<?= $ImageUrl ?>" alt=""></a></li>
-          <?php endif; ?>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    </div>
-  </div>
 <?php endif; ?>
 
 <main>

@@ -24,35 +24,6 @@ class UsersController extends AppController
     }
 
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    // public function index()
-    // {
-    //     // $users = $this->paginate($this->Users);
-    //     //
-    //     // $this->set(compact('users'));
-    //     return $this->redirect(['controller' => 'tweets','action' => 'index']);
-    // }
-
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    // public function view($id = null)
-    // {
-    //     // $user = $this->Users->get($id, [
-    //     //     'contain' => ['Replys', 'Tweets']
-    //     // ]);
-    //     // $this->set('user', $user);
-    //     return $this->redirect(['controller' => 'tweets','action' => 'index']);
-    // }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

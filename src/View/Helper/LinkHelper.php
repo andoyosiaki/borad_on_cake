@@ -66,8 +66,8 @@ class LinkHelper extends Helper
         $url = file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$uniqurl.'&key='.YOUTUBE_API.'&part=snippet');
         $json = json_decode($url,true);
         $youtubetitle = $json['items'][0]['snippet']['title'];
-        $CutTitle =  mb_substr($youtubetitle,0,25);
-        return [$ImageUrl,$YoutubeUrl,$CutTitle];
+        // $CutTitle =  mb_substr($youtubetitle,0,25);
+        return [$ImageUrl,$YoutubeUrl,$youtubetitle];
       }
     }
   }
